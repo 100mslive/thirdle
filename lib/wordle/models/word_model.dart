@@ -1,50 +1,52 @@
-import 'package:equatable/equatable.dart';
 import 'package:thirdle/wordle/models/letter_model.dart';
 
-class Word extends Equatable {
-  const Word({required this.letters, this.isActualWord = true});
+class Word {
+  Word({required this.letters, this.isActualWord = true});
 
-  final List<Letter> letters;
+  List<Letter> letters;
   final bool isActualWord;
 
   // use this method on guessed word with the actual word as param
   // changes the letter status
-  Word comparedWord(Word actualWord) {
-    List<Letter> newLetters = letters;
-    List<bool> flags = List.generate(5, (index) => false);
+  void compareWithWord(Word actualWord) {
+    List<bool> flags =
+        List.generate(letters.length, (index) => false, growable: false);
 
-    for (int i = 0; i < newLetters.length; i++) {
-      // check for correct letter and correct pos
-      if (!flags[i] && newLetters[i] == actualWord.letters[i]) {
-        newLetters[i] = newLetters[i].copyWith(
-          status: LetterStatus.correctLetterWithPosition,
-        );
+    // we give preference to "correct letter and correct pos"
+    // over just "corect pos"
+    // Ex: Actual word = "apple" and Guess word = "apllp"
+    // we want the status to be the following for the letters:
+    // 1. correct letter with pos
+    // 2. correct letter with pos
+    // 3. none
+    // 4. correct letter with pos
+    // 5. correct letter
+    // rather than:
+    // 1. correct letter with pos
+    // 2. correct letter with pos
+    // 3. correct letter
+    // 4. none
+    // 5. correct letter
+
+    // check for correct letter and correct pos
+    for (int i = 0; i < letters.length; i++) {
+      if (!flags[i] && letters[i].value == actualWord.letters[i].value) {
+        letters[i].status = LetterStatus.correctLetterWithPosition;
         flags[i] = true;
         continue;
       }
+    }
 
-      // check only for correct letter
+    // check only for correct letter
+    for (int i = 0; i < letters.length; i++) {
+      if (flags[i]) continue;
       for (int j = 0; j < actualWord.letters.length; j++) {
-        if (!flags[j] && newLetters[i] == actualWord.letters[j]) {
-          newLetters[i] = newLetters[i].copyWith(
-            status: LetterStatus.correctLetter,
-          );
-          flags[i] = true;
+        if (!flags[j] && letters[i].value == actualWord.letters[j].value) {
+          letters[i].status = LetterStatus.correctLetter;
+          flags[j] = true;
           break;
         }
       }
     }
-
-    return Word(letters: newLetters, isActualWord: isActualWord);
   }
-
-  Word copyWith({List<Letter>? letters, bool? isActualWord}) {
-    return Word(
-      letters: letters ?? this.letters,
-      isActualWord: isActualWord ?? this.isActualWord,
-    );
-  }
-
-  @override
-  List<Object?> get props => [letters];
 }

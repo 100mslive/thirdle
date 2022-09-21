@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Word actualWord = const Word(
+  final Word actualWord = Word(
     letters: [
       Letter(value: 'a'),
       Letter(value: 'p'),
@@ -56,17 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _check() {
     setState(() {
-      guessWord = guessWord.copyWith(
-        letters: [
-          Letter(value: _controller.text.substring(0, 1)),
-          Letter(value: _controller.text.substring(1, 2)),
-          Letter(value: _controller.text.substring(2, 3)),
-          Letter(value: _controller.text.substring(3, 4)),
-          Letter(value: _controller.text.substring(4, 5)),
-        ],
-        isActualWord: true,
-      );
-      guessWord = guessWord.comparedWord(actualWord);
+      guessWord.letters = [
+        Letter(value: _controller.text.substring(0, 1)),
+        Letter(value: _controller.text.substring(1, 2)),
+        Letter(value: _controller.text.substring(2, 3)),
+        Letter(value: _controller.text.substring(3, 4)),
+        Letter(value: _controller.text.substring(4, 5)),
+      ];
+      guessWord.compareWithWord(actualWord);
     });
   }
 
