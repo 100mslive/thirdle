@@ -39,7 +39,7 @@ class Word {
 
     // check only for correct letter
     for (int i = 0; i < letters.length; i++) {
-      if (flags[i]) continue;
+      if (letters[i].status != LetterStatus.none) continue;
       for (int j = 0; j < actualWord.letters.length; j++) {
         if (!flags[j] && letters[i].value == actualWord.letters[j].value) {
           letters[i].status = LetterStatus.correctLetter;
