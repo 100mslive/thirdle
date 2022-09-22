@@ -1,7 +1,18 @@
 import 'package:thirdle/wordle/models/letter_model.dart';
 
 class Word {
-  Word({required this.letters, this.isActualWord = true});
+  Word._({required this.letters, required this.isActualWord});
+
+  factory Word.fromString(
+      {required String wordString, bool isActualWord = false}) {
+    return Word._(
+      letters: wordString
+          .split('')
+          .map((letterString) => Letter(value: letterString))
+          .toList(),
+      isActualWord: isActualWord,
+    );
+  }
 
   List<Letter> letters;
   final bool isActualWord;

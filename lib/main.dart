@@ -32,24 +32,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Word actualWord = Word(
-    letters: [
-      Letter(value: 'a'),
-      Letter(value: 'p'),
-      Letter(value: 'p'),
-      Letter(value: 'l'),
-      Letter(value: 'e'),
-    ],
+  final Word actualWord = Word.fromString(
+    wordString: "apple",
     isActualWord: true,
   );
-  Word guessWord = Word(
-    letters: [
-      Letter(value: ''),
-      Letter(value: ''),
-      Letter(value: ''),
-      Letter(value: ''),
-      Letter(value: ''),
-    ],
+  Word guessWord = Word.fromString(
+    wordString: "     ",
     isActualWord: true,
   );
   final TextEditingController _controller = TextEditingController();
