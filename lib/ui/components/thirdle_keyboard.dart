@@ -7,6 +7,7 @@ class ThirdleKeyboard extends StatefulWidget {
   const ThirdleKeyboard({
     Key? key,
     required this.controller,
+    required this.maxWordLimit,
     this.height,
     this.width,
     this.spacing = 8.0,
@@ -16,8 +17,6 @@ class ThirdleKeyboard extends StatefulWidget {
     this.enableSpaceBar = false,
     this.enableBackSpace = true,
     this.enableCapsLock = false,
-    this.enableAllUppercase = true,
-    this.enableLongPressUppercase = false,
     this.highlightColor,
     this.splashColor,
     this.onEnterTap,
@@ -38,6 +37,9 @@ class ThirdleKeyboard extends StatefulWidget {
   // Color of the keys
   final Color color;
 
+  // max word size
+  final int maxWordLimit;
+
   // TextStyle of the letters in the keys (fontsize, fontface)
   final TextStyle letterStyle;
 
@@ -49,14 +51,6 @@ class ThirdleKeyboard extends StatefulWidget {
   // height and width of each key
   final double? height;
   final double? width;
-
-  // Additional functionality for the keys //
-
-  // Makes the keyboard uppercase
-  final bool enableAllUppercase;
-
-  // Long press to write uppercase letters
-  final bool enableLongPressUppercase;
 
   // The color displayed when the key is pressed
   final Color? highlightColor;
@@ -143,16 +137,10 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             onTap: () {
               HapticFeedback.heavyImpact();
 
-              if (widget.controller.text.length == 5) {
+              if (widget.controller.text.length == widget.maxWordLimit) {
                 return;
               }
               widget.controller.text += letter;
-            },
-            onLongPress: () {
-              if (widget.enableLongPressUppercase &&
-                  !widget.enableAllUppercase) {
-                widget.controller.text += letter.toUpperCase();
-              }
             },
             child: Center(
               child: Text(
@@ -278,13 +266,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
 
   // Keyboard layout list
   List<Widget> layout() {
-    var letters = <String>[];
-    if (widget.enableAllUppercase) {
-      letters = 'qwertyuiopasdfghjklzxcvbnm'.toUpperCase().split('');
-    } else {
-      letters = 'qwertyuiopasdfghjklzxcvbnm'.split('');
-    }
-
+    final letters = 'qwertyuiopasdfghjklzxcvbnm'.split('');
     final keyboard = <Widget>[];
     for (var letter in letters) {
       keyboard.add(
