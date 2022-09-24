@@ -1,0 +1,37 @@
+PODS:
+  - Flutter (1.0.0)
+  - HMSBroadcastExtensionSDK (0.0.3)
+  - HMSSDK (0.4.2):
+    - HMSWebRTC (= 1.0.4898)
+  - hmssdk_flutter (0.7.6):
+    - Flutter
+    - HMSBroadcastExtensionSDK (= 0.0.3)
+    - HMSSDK (= 0.4.2)
+  - HMSWebRTC (1.0.4898)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - hmssdk_flutter (from `.symlinks/plugins/hmssdk_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - HMSBroadcastExtensionSDK
+    - HMSSDK
+    - HMSWebRTC
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  hmssdk_flutter:
+    :path: ".symlinks/plugins/hmssdk_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  HMSBroadcastExtensionSDK: a69a4503a1708b5d51e2890d70f574b9cdfea760
+  HMSSDK: 50c5ea8edf7093472d4254c6f69ccce11323be10
+  hmssdk_flutter: d01a09c586d25afda61f5535963f06aa1d992af5
+  HMSWebRTC: d3a9b2866e4a36a1d3834728a548a4a46309bb86
+
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
+
+COCOAPODS: 1.11.2
