@@ -1,11 +1,9 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/ui/components/letter_tile.dart';
 
-class WordRow extends StatelessWidget {
-  const WordRow({required this.word, super.key});
+class WordBar extends StatelessWidget {
+  const WordBar({required this.word, super.key});
 
   final Word word;
 
