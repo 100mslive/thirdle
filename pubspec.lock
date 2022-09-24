@@ -60,6 +60,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  hmssdk_flutter:
+    dependency: "direct main"
+    description:
+      name: hmssdk_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.6"
   lints:
     dependency: transitive
     description:
@@ -165,4 +172,4 @@ packages:
     version: "2.1.2"
 sdks:
   dart: ">=2.18.1 <3.0.0"
-  flutter: ">=1.16.0"
+  flutter: ">=1.20.0"

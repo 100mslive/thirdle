@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  hmssdk_flutter: ^0.7.6
   provider: ^6.0.3
 
 
