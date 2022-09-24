@@ -13,7 +13,7 @@ class MeetActions {
       String room = "62dad79fb1e780e78c39d2cd"}) async {
     http.Response response = await http.post(
       Uri.parse(
-          "https://prod-in2.100ms.live/hmsapi/karthikeyan.app.100ms.live/"),
+          "https://prod-in2.100ms.live/hmsapi/karthikeyan.app.100ms.live/api/token"),
       body: {'room_id': room, 'user_id': user, 'role': 'host'},
     );
     var body = json.decode(response.body);

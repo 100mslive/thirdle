@@ -15,7 +15,7 @@ class ThirdleBoard extends StatefulWidget {
 class _ThirdleBoardState extends State<ThirdleBoard> {
   @override
   void initState() {
-    Provider.of<GameKit>(context, listen: false).startNewRound(9);
+    context.read<GameKit>().startNewRound(9);
     super.initState();
   }
 

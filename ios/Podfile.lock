@@ -8,10 +8,13 @@ PODS:
     - HMSBroadcastExtensionSDK (= 0.0.3)
     - HMSSDK (= 0.4.2)
   - HMSWebRTC (1.0.4898)
+  - permission_handler_apple (9.0.4):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - hmssdk_flutter (from `.symlinks/plugins/hmssdk_flutter/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
 
 SPEC REPOS:
   trunk:
@@ -24,6 +27,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   hmssdk_flutter:
     :path: ".symlinks/plugins/hmssdk_flutter/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
@@ -31,6 +36,7 @@ SPEC CHECKSUMS:
   HMSSDK: 50c5ea8edf7093472d4254c6f69ccce11323be10
   hmssdk_flutter: d01a09c586d25afda61f5535963f06aa1d992af5
   HMSWebRTC: d3a9b2866e4a36a1d3834728a548a4a46309bb86
+  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
