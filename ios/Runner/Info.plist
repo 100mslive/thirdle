@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to Camera to enable video calling.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Allow access to Camera to network to enable video calling.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow access to Camera to mic to enable video calling.</string>
 </dict>
 </plist>
