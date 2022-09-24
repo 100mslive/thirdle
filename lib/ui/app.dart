@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thirdle/ui/screens/thirdle_board.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,7 +10,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SizedBox(),
+      home: Padding(
+          padding: EdgeInsets.symmetric(vertical: 50), child: ThirdleBoard()),
     );
   }
 }

@@ -14,6 +14,14 @@ class Word {
     );
   }
 
+  factory Word.emptyWordFromSize({required int size}) {
+    return Word._(
+        letters: List.filled(size, ' ')
+            .map((letterValue) => Letter(value: letterValue))
+            .toList(),
+        isActualWord: false);
+  }
+
   List<Letter> letters;
   final bool isActualWord;
 
