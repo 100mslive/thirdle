@@ -19,7 +19,13 @@ class LetterTile extends StatelessWidget {
                 : Colors.grey,
       ),
       child: Center(
-        child: Text(letter.value, style: const TextStyle(fontSize: 14)),
+        child: Text(
+          letter.value,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.blue,
+          ),
+        ),
       ),
     );
   }
