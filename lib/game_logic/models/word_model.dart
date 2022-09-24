@@ -68,4 +68,21 @@ class Word {
       }
     }
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "letters": letters.map((letter) => letter.toMap()).toList(),
+    };
+  }
+
+  factory Word.fromMap(Map<String, dynamic> map) {
+    return Word._(
+      letters: map["letters"]
+          .map(
+            (letterMap) => Letter.fromMap(letterMap),
+          )
+          .toList(),
+      isActualWord: false,
+    );
+  }
 }
