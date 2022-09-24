@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
-import 'package:thirdle/game_logic/thirdle_kit.dart';
+import 'package:thirdle/game_logic/game_kit.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
 import 'package:thirdle/ui/components/word_bar.dart';
 
@@ -15,13 +15,13 @@ class ThirdleBoard extends StatefulWidget {
 class _ThirdleBoardState extends State<ThirdleBoard> {
   @override
   void initState() {
-    Provider.of<ThirdleKit>(context, listen: false).startNewRound(9);
+    Provider.of<GameKit>(context, listen: false).startNewRound(9);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThirdleKit>(
+    return Consumer<GameKit>(
       builder: ((context, thirdleKit, child) {
         final TextEditingController textEditingController =
             TextEditingController();

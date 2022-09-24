@@ -4,8 +4,8 @@ import 'package:thirdle/game_logic/models/word_model.dart';
 
 enum GuessStatus { validGuess, invalidGuess }
 
-class ThirdleKit extends ChangeNotifier {
-  ThirdleKit({this.wordSize = 5, this.noOfGuesses = 6});
+class GameKit extends ChangeNotifier {
+  GameKit({this.wordSize = 5, this.noOfGuesses = 6});
 
   final int wordSize, noOfGuesses;
   late List<Word> guessWords;
