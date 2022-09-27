@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thirdle/ui/screens/meet_tiles.dart';
+import 'package:thirdle/ui/screens/meet_board.dart';
 import 'package:thirdle/ui/screens/thirdle_board.dart';
 
 class App extends StatelessWidget {
@@ -13,9 +13,10 @@ class App extends StatelessWidget {
       ),
       home: Padding(
           padding: EdgeInsets.symmetric(vertical: 50),
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
-              MeetTiles(),
+              MeetBoard(),
               ThirdleBoard(),
             ],
           )),

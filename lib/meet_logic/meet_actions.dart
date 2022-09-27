@@ -35,7 +35,8 @@ class MeetActions {
     await sdk.changeMetadata(metadata: wordsJson);
   }
 
-  List<Word> parseMetadata(String metadata) {
+  List<Word>? parseMetadata(String? metadata) {
+    if (metadata == null) return null;
     List<Word> wordList = jsonDecode(metadata)
         .map<Word>(
           (element) => Word.fromMap(element),

@@ -7,10 +7,9 @@ import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_actions.dart';
 
 class MeetKit extends ChangeNotifier implements HMSUpdateListener {
-  late List<HMSPeer> remotePeers;
-  late HMSPeer localPeer;
+  List<HMSPeer> allPeers = [];
   late MeetActions actions;
-  late Map<String, List<Word>> peerWords;
+  Map<String, List<Word>?> peerWords = {};
 
   Future<void> init() async {
     await _getPermissions();
@@ -55,7 +54,10 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   @override
   void onJoin({required HMSRoom room}) {
     if (room.peers != null) {
-      localPeer = room.peers!.firstWhere((peer) => peer.isLocal);
+      allPeers = room.peers!;
+      room.peers!.map((peer) {
+        peerWords[peer.peerId] = actions.parseMetadata(peer.metadata);
+      });
     }
     notifyListeners();
   }
@@ -69,10 +71,10 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   void onPeerUpdate({required HMSPeer peer, required HMSPeerUpdate update}) {
     switch (update) {
       case HMSPeerUpdate.peerJoined:
-        remotePeers.add(peer);
+        allPeers.add(peer);
         break;
       case HMSPeerUpdate.peerLeft:
-        remotePeers.remove(peer);
+        allPeers.remove(peer);
         break;
       case HMSPeerUpdate.metadataChanged:
         peerWords[peer.peerId] = actions.parseMetadata(peer.metadata!);
@@ -81,9 +83,12 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       case HMSPeerUpdate.nameChanged:
       case HMSPeerUpdate.defaultUpdate:
       case HMSPeerUpdate.networkQualityUpdated:
-        final peerIndex = remotePeers
+        final peerIndex = allPeers
             .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-        remotePeers[peerIndex] = peer;
+        if (peerIndex != -1) {
+          allPeers.removeAt(peerIndex);
+          allPeers.add(peer);
+        }
     }
     notifyListeners();
   }
@@ -119,9 +124,9 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       {required HMSTrack track,
       required HMSTrackUpdate trackUpdate,
       required HMSPeer peer}) {
-    final peerIndex = remotePeers
+    final peerIndex = allPeers
         .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-    remotePeers[peerIndex] = peer;
+    if (peerIndex != -1) allPeers[peerIndex] = peer;
     notifyListeners();
   }
 

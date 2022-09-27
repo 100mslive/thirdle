@@ -8,7 +8,7 @@ class GameKit extends ChangeNotifier {
   GameKit({this.wordSize = 5, this.noOfGuesses = 6});
 
   final int wordSize, noOfGuesses;
-  late List<Word> guessWords;
+  List<Word> guessWords = [];
   late Word _actualWord;
   // scraped from https://gist.github.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b
   // and https://gist.github.com/cfreshman/cdcdf777450c5b5301e439061d29694c

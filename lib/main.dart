@@ -9,7 +9,6 @@ void main() async {
   final GameKit thirdleKit = GameKit();
   await thirdleKit.init();
   final MeetKit meetKit = MeetKit();
-  await meetKit.init();
   runApp(
     MultiProvider(
       providers: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
+import 'package:thirdle/ui/components/guess_word_box.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
 import 'package:thirdle/ui/components/word_bar.dart';
 
@@ -16,6 +16,10 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
   @override
   void initState() {
     context.read<GameKit>().startNewRound(9);
+    // context
+    //     .read<MeetKit>()
+    //     .actions
+    //     .updateMetadata(words: context.read<GameKit>().guessWords);
     super.initState();
   }
 
@@ -27,10 +31,10 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
             TextEditingController();
         final ScrollController scrollController = ScrollController();
 
-        void _animateToCurrentWord() {
+        void animateToCurrentWord() {
           scrollController.animateTo(
             thirdleKit.guessNo * 50.0,
-            duration: Duration(seconds: 1),
+            duration: const Duration(seconds: 1),
             curve: Curves.fastOutSlowIn,
           );
         }
@@ -39,11 +43,12 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           print("invalid word");
         }
 
-        return Column(children: [
+        return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
             height: 220,
             padding: EdgeInsets.symmetric(vertical: 20),
             child: ListView(
+              controller: scrollController,
               children: thirdleKit.guessWords
                   .map(
                     (guessWord) => WordBar(
@@ -51,15 +56,16 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                     ),
                   )
                   .toList(),
-              controller: scrollController,
             ),
           ),
+          GuessWordBox(controller: textEditingController),
           ThirdleKeyboard(
             controller: textEditingController,
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) {
               thirdleKit.makeGuess(guessWordString);
-              _animateToCurrentWord();
+              textEditingController.clear();
+              animateToCurrentWord();
             },
           ),
         ]);
