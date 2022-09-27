@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:thirdle/game_logic/models/word_model.dart';
@@ -29,13 +30,14 @@ class MeetActions {
   }
 
   Future<void> updateMetadata({required List<Word> words}) async {
-    final String wordsJson = jsonEncode(words.map((word) => word.toMap()));
+    final String wordsJson =
+        jsonEncode(words.map((word) => word.toMap()).toList());
     await sdk.changeMetadata(metadata: wordsJson);
   }
 
   List<Word> parseMetadata(String metadata) {
     List<Word> wordList = jsonDecode(metadata)
-        .map(
+        .map<Word>(
           (element) => Word.fromMap(element),
         )
         .toList();

@@ -78,7 +78,7 @@ class Word {
   factory Word.fromMap(Map<String, dynamic> map) {
     return Word._(
       letters: map["letters"]
-          .map(
+          .map<Letter>(
             (letterMap) => Letter.fromMap(letterMap),
           )
           .toList(),

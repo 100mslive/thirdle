@@ -12,14 +12,14 @@ class Letter {
   Map<String, dynamic> toMap() {
     return {
       "value": value,
-      "status": status.toString(),
+      "status": status.name,
     };
   }
 
   factory Letter.fromMap(Map<String, dynamic> map) {
     return Letter(
       value: map["value"],
-      status: map["status"],
+      status: LetterStatus.values.byName(map["status"]),
     );
   }
 }
