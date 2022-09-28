@@ -6,16 +6,13 @@ class App extends StatelessWidget {
   const App({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Thirdle',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Padding(
-          padding: EdgeInsets.symmetric(vertical: 50),
+    return Scaffold(
+      backgroundColor: Color(0xFF0C0F15),
+      body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50),
           child: ListView(
             shrinkWrap: true,
-            children: [
+            children: const [
               MeetBoard(),
               ThirdleBoard(),
             ],

@@ -12,8 +12,8 @@ class ThirdleKeyboard extends StatefulWidget {
     this.width,
     this.spacing = 8.0,
     this.borderRadius,
-    this.color = Colors.grey,
-    this.letterStyle = const TextStyle(fontSize: 2, color: Colors.black),
+    this.color = const Color(0xFF2E80FF),
+    this.letterStyle = const TextStyle(fontSize: 2, color: Colors.white),
     this.enableSpaceBar = false,
     this.enableBackSpace = true,
     this.enableCapsLock = false,
@@ -130,7 +130,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: widget.width ?? width,
         child: Material(
           type: MaterialType.button,
-          color: widget.color,
+          color: Color.fromARGB(255, 17, 66, 149),
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
@@ -147,7 +147,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
                 letter,
                 style: const TextStyle(
                   fontSize: 19,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -220,7 +220,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
               child: Icon(
                 Icons.backspace,
                 size: widget.letterStyle.fontSize,
-                color: widget.letterStyle.color,
+                color: Colors.white,
               ),
             ),
           ),
