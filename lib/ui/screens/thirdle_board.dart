@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
+import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/guess_word_box.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
 import 'package:thirdle/ui/components/word_bar.dart';
@@ -16,10 +17,6 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
   @override
   void initState() {
     context.read<GameKit>().startNewRound(9);
-    // context
-    //     .read<MeetKit>()
-    //     .actions
-    //     .updateMetadata(words: context.read<GameKit>().guessWords);
     super.initState();
   }
 
@@ -62,8 +59,12 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           ThirdleKeyboard(
             controller: textEditingController,
             maxWordLimit: thirdleKit.wordSize,
-            onEnterTap: (guessWordString) {
+            onEnterTap: (guessWordString) async {
               thirdleKit.makeGuess(guessWordString);
+              context
+                  .read<MeetKit>()
+                  .actions
+                  .updateMetadata(words: context.read<GameKit>().guessWords);
               textEditingController.clear();
               animateToCurrentWord();
             },

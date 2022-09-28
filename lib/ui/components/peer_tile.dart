@@ -17,8 +17,10 @@ class PeerTile extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: peer.videoTrack != null
-                ? HMSVideoView(track: peer.videoTrack!)
+            child: context.read<MeetKit>().peerTracks[peer.peerId] != null
+                ? HMSVideoView(
+                    track: context.read<MeetKit>().peerTracks[peer.peerId]
+                        as HMSVideoTrack)
                 : const Center(
                     child: Text("No Video"),
                   ),

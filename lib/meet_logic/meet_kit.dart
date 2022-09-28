@@ -10,6 +10,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];
   late MeetActions actions;
   Map<String, List<Word>?> peerWords = {};
+  Map<String, HMSTrack?> peerTracks = {};
 
   Future<void> init() async {
     await _getPermissions();
@@ -77,7 +78,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
         allPeers.remove(peer);
         break;
       case HMSPeerUpdate.metadataChanged:
-        peerWords[peer.peerId] = actions.parseMetadata(peer.metadata!);
+        peerWords[peer.peerId] = actions.parseMetadata(peer.metadata);
         break;
       case HMSPeerUpdate.roleUpdated:
       case HMSPeerUpdate.nameChanged:
@@ -86,8 +87,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
         final peerIndex = allPeers
             .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
         if (peerIndex != -1) {
-          allPeers.removeAt(peerIndex);
-          allPeers.add(peer);
+          allPeers[peerIndex] = peer;
         }
     }
     notifyListeners();
@@ -124,9 +124,20 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       {required HMSTrack track,
       required HMSTrackUpdate trackUpdate,
       required HMSPeer peer}) {
-    final peerIndex = allPeers
-        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-    if (peerIndex != -1) allPeers[peerIndex] = peer;
+    switch (trackUpdate) {
+      case HMSTrackUpdate.trackAdded:
+        if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
+          peerTracks[peer.peerId] = track;
+        }
+        break;
+      case HMSTrackUpdate.trackRemoved:
+        if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
+          peerTracks[peer.peerId] = null;
+        }
+        break;
+      default:
+    }
+
     notifyListeners();
   }
 

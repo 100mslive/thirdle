@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:thirdle/game_logic/game_kit.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/peer_tile.dart';
 
@@ -13,10 +14,14 @@ class MeetBoard extends StatefulWidget {
 class _MeetBoardState extends State<MeetBoard> {
   @override
   void initState() {
-    context
-        .read<MeetKit>()
-        .init()
-        .then((value) => context.read<MeetKit>().actions.joinRoom());
+    context.read<MeetKit>().init().whenComplete(
+          () => context.read<MeetKit>().actions.joinRoom().whenComplete(
+                () => context
+                    .read<MeetKit>()
+                    .actions
+                    .updateMetadata(words: context.read<GameKit>().guessWords),
+              ),
+        );
     super.initState();
   }
 
