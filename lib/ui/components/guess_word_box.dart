@@ -14,20 +14,16 @@ class GuessWordBox extends StatefulWidget {
 class _GuessWordBoxState extends State<GuessWordBox> {
   @override
   Widget build(BuildContext context) {
+    print("Changed Text: " + context.watch<GameKit>().currentGuessWord);
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ...context
-            .watch<GameKit>()
-            .currentGuessWordController
-            .text
-            .split('')
-            .map(
+        ...context.watch<GameKit>().currentGuessWord.split('').map(
               (letterText) => GuessLetterBox(letterText: letterText),
             ),
         ...List.generate(
           (widget.noOfLetters -
-              context.watch<GameKit>().currentGuessWordController.text.length),
+              context.watch<GameKit>().currentGuessWord.length),
           (index) => const GuessLetterBox(letterText: ""),
         ),
       ]),
@@ -47,11 +43,12 @@ class GuessLetterBox extends StatelessWidget {
       child: Container(
         height: 50,
         width: 50,
-        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+        decoration: BoxDecoration(
+            color: Colors.blue, border: Border.all(color: Colors.white)),
         child: Center(
           child: Text(
             letterText,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.black),
           ),
         ),
       ),

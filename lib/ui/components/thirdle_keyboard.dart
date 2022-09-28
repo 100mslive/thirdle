@@ -105,16 +105,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
                   ),
           ],
         ),
-        widget.enableSpaceBar
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: widget.spacing,
-                  ),
-                  spaceBar(),
-                ],
-              )
-            : const Offstage(),
+        const Offstage(),
       ],
     );
   }
@@ -135,15 +126,12 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             onTap: () {
               HapticFeedback.heavyImpact();
 
-              if (context
-                      .read<GameKit>()
-                      .currentGuessWordController
-                      .text
-                      .length ==
+              if (context.read<GameKit>().currentGuessWord.length ==
                   widget.maxWordLimit) {
                 return;
               }
-              context.read<GameKit>().currentGuessWordController.text += letter;
+              context.read<GameKit>().updateGuessWord(
+                  context.read<GameKit>().currentGuessWord + letter);
             },
             child: Center(
               child: Text(
@@ -151,38 +139,6 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
                 style: const TextStyle(
                   fontSize: 19,
                   color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Spacebar button widget
-  Widget spaceBar() {
-    return ClipRRect(
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
-      child: SizedBox(
-        height: widget.height ?? height,
-        width: (widget.width ?? width) + 160,
-        child: Material(
-          type: MaterialType.button,
-          color: widget.color,
-          child: InkWell(
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
-            onTap: () {
-              HapticFeedback.heavyImpact();
-              context.read<GameKit>().currentGuessWordController.text += ' ';
-            },
-            child: Center(
-              child: Text(
-                '_________',
-                style: TextStyle(
-                  fontSize: widget.letterStyle.fontSize,
-                  color: widget.letterStyle.color,
                 ),
               ),
             ),
@@ -207,24 +163,12 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             splashColor: widget.splashColor,
             onTap: () {
               HapticFeedback.heavyImpact();
-              if (context
-                  .read<GameKit>()
-                  .currentGuessWordController
-                  .text
-                  .isNotEmpty) {
-                context.read<GameKit>().currentGuessWordController.text =
-                    context
-                        .read<GameKit>()
-                        .currentGuessWordController
-                        .text
-                        .substring(
-                            0,
-                            context
-                                    .read<GameKit>()
-                                    .currentGuessWordController
-                                    .text
-                                    .length -
-                                1);
+              if (context.read<GameKit>().currentGuessWord.isNotEmpty) {
+                context.read<GameKit>().updateGuessWord(context
+                    .read<GameKit>()
+                    .currentGuessWord
+                    .substring(0,
+                        context.read<GameKit>().currentGuessWord.length - 1));
               }
             },
             child: Center(
@@ -257,8 +201,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
               HapticFeedback.heavyImpact();
 
               if (widget.onEnterTap != null) {
-                widget.onEnterTap!(
-                    context.read<GameKit>().currentGuessWordController.text);
+                widget.onEnterTap!(context.read<GameKit>().currentGuessWord);
               }
             },
             child: Center(
