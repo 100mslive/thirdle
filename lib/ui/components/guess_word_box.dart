@@ -27,15 +27,18 @@ class _GuessWordBoxState extends State<GuessWordBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      ...guessText.split('').map(
-            (letterText) => GuessLetterBox(letterText: letterText),
-          ),
-      ...List.generate(
-        (widget.noOfLetters - guessText.length),
-        (index) => const GuessLetterBox(letterText: ""),
-      ),
-    ]);
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ...guessText.split('').map(
+              (letterText) => GuessLetterBox(letterText: letterText),
+            ),
+        ...List.generate(
+          (widget.noOfLetters - guessText.length),
+          (index) => const GuessLetterBox(letterText: ""),
+        ),
+      ]),
+    );
   }
 }
 
@@ -46,14 +49,17 @@ class GuessLetterBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-      child: Center(
-        child: Text(
-          letterText,
-          style: const TextStyle(fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0),
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+        child: Center(
+          child: Text(
+            letterText,
+            style: const TextStyle(fontSize: 16, color: Colors.white),
+          ),
         ),
       ),
     );

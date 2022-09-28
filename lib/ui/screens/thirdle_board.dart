@@ -43,7 +43,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
             height: 220,
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: ListView(
               controller: scrollController,
               children: thirdleKit.guessWords
