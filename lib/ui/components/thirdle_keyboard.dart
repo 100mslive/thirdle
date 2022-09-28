@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:thirdle/game_logic/game_kit.dart';
 
 // Credits: https://github.com/Zfinix/worddle
 
 class ThirdleKeyboard extends StatefulWidget {
   const ThirdleKeyboard({
     Key? key,
-    required this.controller,
     required this.maxWordLimit,
     this.height,
     this.width,
@@ -21,9 +22,6 @@ class ThirdleKeyboard extends StatefulWidget {
     this.splashColor,
     this.onEnterTap,
   }) : super(key: key);
-
-  // The controller connected to the InputField
-  final TextEditingController controller;
 
   // The controller connected to the InputField
   final ValueChanged<String>? onEnterTap;
@@ -137,10 +135,15 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             onTap: () {
               HapticFeedback.heavyImpact();
 
-              if (widget.controller.text.length == widget.maxWordLimit) {
+              if (context
+                      .read<GameKit>()
+                      .currentGuessWordController
+                      .text
+                      .length ==
+                  widget.maxWordLimit) {
                 return;
               }
-              widget.controller.text += letter;
+              context.read<GameKit>().currentGuessWordController.text += letter;
             },
             child: Center(
               child: Text(
@@ -172,7 +175,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             splashColor: widget.splashColor,
             onTap: () {
               HapticFeedback.heavyImpact();
-              widget.controller.text += ' ';
+              context.read<GameKit>().currentGuessWordController.text += ' ';
             },
             child: Center(
               child: Text(
@@ -204,16 +207,24 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             splashColor: widget.splashColor,
             onTap: () {
               HapticFeedback.heavyImpact();
-              if (widget.controller.text.isNotEmpty) {
-                widget.controller.text = widget.controller.text
-                    .substring(0, widget.controller.text.length - 1);
-              }
-            },
-            onLongPress: () {
-              if (widget.controller.text.isNotEmpty) {
-                widget.controller.text = '';
-                widget.controller.selection = TextSelection.fromPosition(
-                    TextPosition(offset: widget.controller.text.length));
+              if (context
+                  .read<GameKit>()
+                  .currentGuessWordController
+                  .text
+                  .isNotEmpty) {
+                context.read<GameKit>().currentGuessWordController.text =
+                    context
+                        .read<GameKit>()
+                        .currentGuessWordController
+                        .text
+                        .substring(
+                            0,
+                            context
+                                    .read<GameKit>()
+                                    .currentGuessWordController
+                                    .text
+                                    .length -
+                                1);
               }
             },
             child: Center(
@@ -246,7 +257,8 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
               HapticFeedback.heavyImpact();
 
               if (widget.onEnterTap != null) {
-                widget.onEnterTap!(widget.controller.text);
+                widget.onEnterTap!(
+                    context.read<GameKit>().currentGuessWordController.text);
               }
             },
             child: Center(

@@ -24,8 +24,6 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
   Widget build(BuildContext context) {
     return Consumer<GameKit>(
       builder: ((context, thirdleKit, child) {
-        final TextEditingController textEditingController =
-            TextEditingController();
         final ScrollController scrollController = ScrollController();
 
         void animateToCurrentWord() {
@@ -55,9 +53,8 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   .toList(),
             ),
           ),
-          GuessWordBox(controller: textEditingController),
+          GuessWordBox(),
           ThirdleKeyboard(
-            controller: textEditingController,
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
               thirdleKit.makeGuess(guessWordString);
@@ -65,7 +62,6 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   .read<MeetKit>()
                   .actions
                   .updateMetadata(words: context.read<GameKit>().guessWords);
-              textEditingController.clear();
               animateToCurrentWord();
             },
           ),

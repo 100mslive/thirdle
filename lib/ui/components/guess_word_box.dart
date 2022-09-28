@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:thirdle/game_logic/game_kit.dart';
 
 class GuessWordBox extends StatefulWidget {
-  const GuessWordBox(
-      {super.key, required this.controller, this.noOfLetters = 5});
+  GuessWordBox({super.key, this.noOfLetters = 5});
 
-  final TextEditingController controller;
   final int noOfLetters;
 
   @override
@@ -12,29 +12,22 @@ class GuessWordBox extends StatefulWidget {
 }
 
 class _GuessWordBoxState extends State<GuessWordBox> {
-  String guessText = "";
-  void updateGuessText() {
-    setState(() {
-      guessText = widget.controller.text;
-    });
-  }
-
-  @override
-  void initState() {
-    widget.controller.addListener(updateGuessText);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ...guessText.split('').map(
+        ...context
+            .watch<GameKit>()
+            .currentGuessWordController
+            .text
+            .split('')
+            .map(
               (letterText) => GuessLetterBox(letterText: letterText),
             ),
         ...List.generate(
-          (widget.noOfLetters - guessText.length),
+          (widget.noOfLetters -
+              context.watch<GameKit>().currentGuessWordController.text.length),
           (index) => const GuessLetterBox(letterText: ""),
         ),
       ]),
