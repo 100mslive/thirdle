@@ -10,7 +10,6 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];
   late MeetActions actions;
   Map<String, List<Word>?> peerWords = {};
-  Map<String, HMSTrack?> peerTracks = {};
 
   Future<void> init() async {
     await _getPermissions();
@@ -124,20 +123,12 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       {required HMSTrack track,
       required HMSTrackUpdate trackUpdate,
       required HMSPeer peer}) {
-    switch (trackUpdate) {
-      case HMSTrackUpdate.trackAdded:
-        if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
-          peerTracks[peer.peerId] = track;
-        }
-        break;
-      case HMSTrackUpdate.trackRemoved:
-        if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
-          peerTracks[peer.peerId] = null;
-        }
-        break;
-      default:
+    final peerIndex = allPeers
+        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
+    if (peerIndex != -1) {
+      allPeers.removeAt(peerIndex);
+      allPeers.insert(peerIndex, peer);
     }
-
     notifyListeners();
   }
 

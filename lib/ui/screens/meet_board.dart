@@ -32,7 +32,7 @@ class _MeetBoardState extends State<MeetBoard> {
       children: [
         Text(context.watch<MeetKit>().allPeers.length.toString()),
         SizedBox(
-          height: 220,
+          height: 300,
           child: ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,

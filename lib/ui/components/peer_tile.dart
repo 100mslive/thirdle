@@ -17,17 +17,22 @@ class PeerTile extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: context.read<MeetKit>().peerTracks[peer.peerId] != null
-                ? HMSVideoView(
-                    track: context.read<MeetKit>().peerTracks[peer.peerId]
-                        as HMSVideoTrack)
+            child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
+                //context.read<MeetKit>().peerTracks[peer.peerId] != null
+                ? HMSVideoView(track: peer.videoTrack!
+                    // context.read<MeetKit>().peerTracks[peer.peerId]
+                    //     as HMSVideoTrack,
+                    )
                 : const Center(
-                    child: Text("No Video"),
+                    child: Text(
+                      "No Video",
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    ),
                   ),
           ),
           Text(
             peer.peerId,
-            style: const TextStyle(fontSize: 10),
+            style: const TextStyle(fontSize: 10, color: Colors.white),
           ),
           peerWordList != null
               ? Column(
