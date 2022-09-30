@@ -12,6 +12,7 @@ dependencies:
   google_fonts: ^3.0.1
   hmssdk_flutter: ^0.7.6
   http: ^0.13.5
+  oktoast: ^3.3.1
   permission_handler: ^10.0.1
   provider: ^6.0.3
 

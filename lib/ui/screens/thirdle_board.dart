@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
@@ -28,14 +29,10 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
 
         void animateToCurrentWord() {
           scrollController.animateTo(
-            thirdleKit.guessNo * 48.0,
+            thirdleKit.guessNo * 35.0,
             duration: const Duration(milliseconds: 600),
             curve: Curves.bounceInOut,
           );
-        }
-
-        if (thirdleKit.guessStatus == GuessStatus.invalidGuess) {
-          print("invalid word");
         }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -63,11 +60,31 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
               thirdleKit.makeGuess(guessWordString);
-              context
-                  .read<MeetKit>()
-                  .actions
-                  .updateMetadata(words: context.read<GameKit>().guessWords);
-              animateToCurrentWord();
+
+              if (context.read<GameKit>().guessStatus ==
+                  GuessStatus.validGuess) {
+                context
+                    .read<MeetKit>()
+                    .actions
+                    .updateMetadata(words: context.read<GameKit>().guessWords);
+                animateToCurrentWord();
+              } else {
+                showToastWidget(
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: Container(
+                          height: 40,
+                          width: 200,
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: const Center(
+                            child: Text("Invalid Word",
+                                style: TextStyle(color: Colors.white)),
+                          )),
+                    ),
+                    position: ToastPosition.bottom);
+              }
             },
           ),
         ]);
