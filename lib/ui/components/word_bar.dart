@@ -40,14 +40,14 @@ class LetterTile extends StatelessWidget {
             ? Colors.green
             : (letter.status == LetterStatus.correctLetter)
                 ? Colors.yellow
-                : Colors.grey,
+                : Color.fromARGB(255, 198, 196, 196),
       ),
       child: Center(
         child: Text(
           letter.value,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.blue,
+            color: Colors.black,
           ),
         ),
       ),
