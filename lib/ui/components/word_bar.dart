@@ -3,28 +3,20 @@ import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
 
 class WordBar extends StatelessWidget {
-  const WordBar(
-      {required this.word,
-      this.letterBoxSize = 50.0,
-      this.obfuscateLetters = false,
-      super.key});
+  const WordBar({required this.word, super.key});
 
   final Word word;
-  final double letterBoxSize;
-  final bool obfuscateLetters;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: letterBoxSize + 20.0,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      height: 50,
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: word.letters
             .map((letter) => LetterTile(
                   letter: letter,
-                  letterBoxSize: letterBoxSize,
-                  obfuscateLetter: obfuscateLetters,
                 ))
             .toList(),
       ),
@@ -33,21 +25,16 @@ class WordBar extends StatelessWidget {
 }
 
 class LetterTile extends StatelessWidget {
-  const LetterTile(
-      {required this.letter,
-      required this.letterBoxSize,
-      required this.obfuscateLetter,
-      super.key});
+  const LetterTile({required this.letter, super.key});
 
   final Letter letter;
-  final double letterBoxSize;
-  final bool obfuscateLetter;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: letterBoxSize,
-      width: letterBoxSize,
+      height: 50,
+      width: 50,
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: letter.status == LetterStatus.correctLetterWithPosition
             ? Colors.green
@@ -55,17 +42,15 @@ class LetterTile extends StatelessWidget {
                 ? Colors.yellow
                 : Colors.grey,
       ),
-      child: obfuscateLetter
-          ? const SizedBox()
-          : Center(
-              child: Text(
-                letter.value,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
+      child: Center(
+        child: Text(
+          letter.value,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.blue,
+          ),
+        ),
+      ),
     );
   }
 }

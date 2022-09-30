@@ -32,7 +32,7 @@ class _MeetBoardState extends State<MeetBoard> {
       children: [
         Text(context.watch<MeetKit>().allPeers.length.toString()),
         SizedBox(
-          height: 300,
+          height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
@@ -56,9 +56,10 @@ class _MeetBoardState extends State<MeetBoard> {
               )),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Text("Leave",
-                style:
-                    GoogleFonts.montserrat(fontSize: 20, color: Colors.white)),
+            child: Text(
+              "Leave",
+              style: GoogleFonts.montserrat(fontSize: 20, color: Colors.white),
+            ),
           ),
           onPressed: () => context
               .read<MeetKit>()

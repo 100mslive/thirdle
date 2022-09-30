@@ -13,10 +13,12 @@ class PeerTile extends StatelessWidget {
     final List<Word>? peerWordList =
         context.watch<MeetKit>().peerWords[peer.peerId];
     return SizedBox(
-      width: 150,
+      width: 100,
       child: Column(
         children: [
-          Expanded(
+          SizedBox(
+            height: 100,
+            width: 100,
             child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
                 //context.read<MeetKit>().peerTracks[peer.peerId] != null
                 ? HMSVideoView(track: peer.videoTrack!
@@ -30,17 +32,23 @@ class PeerTile extends StatelessWidget {
                     ),
                   ),
           ),
-          Text(
-            peer.peerId,
-            style: const TextStyle(fontSize: 10, color: Colors.white),
+          SizedBox(
+            height: 15,
+            child: Text(
+              peer.name,
+              style: const TextStyle(fontSize: 12, color: Colors.white),
+            ),
           ),
           peerWordList != null
-              ? Column(
-                  children: peerWordList
-                      .map((word) => MiniWordBar(
-                            word: word,
-                          ))
-                      .toList(),
+              ? SizedBox(
+                  height: 100,
+                  child: Column(
+                    children: peerWordList
+                        .map((word) => MiniWordBar(
+                              word: word,
+                            ))
+                        .toList(),
+                  ),
                 )
               : const SizedBox(),
         ],
@@ -56,9 +64,9 @@ class MiniWordBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: word.letters
             .map((letter) => MiniLetterTile(
                   letter: letter,
@@ -77,8 +85,9 @@ class MiniLetterTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 5,
-      width: 5,
+      height: 12,
+      width: 12,
+      margin: const EdgeInsets.symmetric(horizontal: 3),
       decoration: BoxDecoration(
         color: letter.status == LetterStatus.correctLetterWithPosition
             ? Colors.green

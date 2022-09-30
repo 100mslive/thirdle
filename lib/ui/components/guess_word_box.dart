@@ -14,9 +14,8 @@ class GuessWordBox extends StatefulWidget {
 class _GuessWordBoxState extends State<GuessWordBox> {
   @override
   Widget build(BuildContext context) {
-    print("Changed Text: " + context.watch<GameKit>().currentGuessWord);
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: 350,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ...context.watch<GameKit>().currentGuessWord.split('').map(
               (letterText) => GuessLetterBox(letterText: letterText),

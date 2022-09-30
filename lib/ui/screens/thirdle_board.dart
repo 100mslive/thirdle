@@ -28,9 +28,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
 
         void animateToCurrentWord() {
           scrollController.animateTo(
-            thirdleKit.guessNo * 50.0,
-            duration: const Duration(seconds: 1),
-            curve: Curves.fastOutSlowIn,
+            thirdleKit.guessNo * 48.0,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.bounceInOut,
           );
         }
 
@@ -40,8 +40,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-            height: 220,
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            height: 150,
+            width: 380,
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: ListView(
               controller: scrollController,
               children: thirdleKit.guessWords
@@ -53,7 +54,11 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   .toList(),
             ),
           ),
-          GuessWordBox(),
+          Container(
+            width: 380,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: GuessWordBox(),
+          ),
           ThirdleKeyboard(
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
