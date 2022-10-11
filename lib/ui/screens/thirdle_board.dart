@@ -42,8 +42,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
               height: 150,
               width: 380,
               decoration: BoxDecoration(
+                  color: Color(0xFF10131C),
                   border: Border.all(
-                    color: Colors.grey,
+                    color: Color.fromARGB(255, 122, 142, 156),
                   ),
                   borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.symmetric(vertical: 15),

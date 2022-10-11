@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Color(0xFF0C0F15),
+        backgroundColor: Colors.black,
         body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: ListView(

@@ -43,8 +43,7 @@ class GuessLetterBox extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-          color: Colors.blue,
-        ),
+            color: Colors.blue, borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: Text(
             letterText,

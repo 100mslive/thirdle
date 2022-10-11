@@ -39,23 +39,23 @@ class LetterTile extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.grey.withOpacity(0.5),
               offset: const Offset(0, 5),
               blurRadius: 5,
               spreadRadius: -5)
         ],
         color: letter.status == LetterStatus.correctLetterWithPosition
-            ? Colors.green
+            ? Color(0xFF62CCA0)
             : (letter.status == LetterStatus.correctLetter)
-                ? Colors.yellow
-                : Color.fromARGB(255, 198, 196, 196),
+                ? Color(0xFFEEBC37)
+                : Color.fromARGB(255, 138, 161, 197),
       ),
       child: Center(
         child: Text(
           letter.value,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
