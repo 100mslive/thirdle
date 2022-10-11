@@ -36,19 +36,27 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
         }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 150,
-            width: 380,
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: ListView(
-              controller: scrollController,
-              children: thirdleKit.guessWords
-                  .map(
-                    (guessWord) => WordBar(
-                      word: guessWord,
-                    ),
-                  )
-                  .toList(),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Container(
+              height: 150,
+              width: 380,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: ListView(
+                controller: scrollController,
+                children: thirdleKit.guessWords
+                    .map(
+                      (guessWord) => WordBar(
+                        word: guessWord,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ),
           Container(

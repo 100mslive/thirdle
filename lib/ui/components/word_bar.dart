@@ -34,8 +34,16 @@ class LetterTile extends StatelessWidget {
     return Container(
       height: 50,
       width: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.white.withOpacity(0.5),
+              offset: const Offset(0, 5),
+              blurRadius: 5,
+              spreadRadius: -5)
+        ],
         color: letter.status == LetterStatus.correctLetterWithPosition
             ? Colors.green
             : (letter.status == LetterStatus.correctLetter)
