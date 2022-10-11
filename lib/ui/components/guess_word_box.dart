@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
 
 class GuessWordBox extends StatefulWidget {
@@ -43,11 +44,11 @@ class GuessLetterBox extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+            color: kPrimaryHMSColor, borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: Text(
             letterText,
-            style: const TextStyle(fontSize: 16, color: Colors.black),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ),

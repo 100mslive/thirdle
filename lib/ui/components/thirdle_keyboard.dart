@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
 
+import '../../constants/colors.dart';
+
 // Credits: https://github.com/Zfinix/worddle
 
 class ThirdleKeyboard extends StatefulWidget {
@@ -119,7 +121,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: widget.width ?? width,
         child: Material(
           type: MaterialType.button,
-          color: Color.fromARGB(255, 17, 66, 149),
+          color: kPrimaryHMSColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
@@ -157,7 +159,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: (widget.width ?? width) + 20,
         child: Material(
           type: MaterialType.button,
-          color: widget.color,
+          color: kPrimaryHMSColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
@@ -193,7 +195,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: (widget.width ?? width) + 20,
         child: Material(
           type: MaterialType.button,
-          color: widget.color,
+          color: kPrimaryHMSColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
