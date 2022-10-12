@@ -70,14 +70,16 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           ThirdleKeyboard(
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
+              final gameKit = context.read<GameKit>();
+              final meetKit = context.read<MeetKit>();
+
               thirdleKit.makeGuess(guessWordString);
 
-              if (context.read<GameKit>().guessStatus ==
-                  GuessStatus.validGuess) {
-                context
-                    .read<MeetKit>()
-                    .actions
-                    .updateMetadata(words: context.read<GameKit>().guessWords);
+              if (gameKit.guessStatus == GuessStatus.validGuess) {
+                meetKit.actions.updateMetadata(
+                  words: gameKit.guessWords,
+                  guessNo: gameKit.guessNo,
+                );
                 animateToCurrentWord();
               } else {
                 showToastWidget(

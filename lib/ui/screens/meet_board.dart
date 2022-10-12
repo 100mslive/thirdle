@@ -14,12 +14,15 @@ class MeetBoard extends StatefulWidget {
 class _MeetBoardState extends State<MeetBoard> {
   @override
   void initState() {
-    context.read<MeetKit>().init().whenComplete(
-          () => context.read<MeetKit>().actions.joinRoom().whenComplete(
-                () => context
-                    .read<MeetKit>()
-                    .actions
-                    .updateMetadata(words: context.read<GameKit>().guessWords),
+    final gameKit = context.read<GameKit>();
+    final meetKit = context.read<MeetKit>();
+
+    meetKit.init().whenComplete(
+          () => meetKit.actions.joinRoom().whenComplete(
+                () => meetKit.actions.updateMetadata(
+                  words: gameKit.guessWords,
+                  guessNo: gameKit.guessNo,
+                ),
               ),
         );
     super.initState();
@@ -29,7 +32,7 @@ class _MeetBoardState extends State<MeetBoard> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 220,
+        height: 140,
         width: 380,
         child: ListView(
           scrollDirection: Axis.horizontal,
