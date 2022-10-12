@@ -4,6 +4,7 @@ import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
+import 'package:thirdle/meet_logic/models/peer_data.dart';
 
 class MeetActions {
   late HMSConfig config;
@@ -29,19 +30,27 @@ class MeetActions {
     await sdk.leave();
   }
 
-  Future<void> updateMetadata({required List<Word> words}) async {
-    final String wordsJson =
-        jsonEncode(words.map((word) => word.toMap()).toList());
-    await sdk.changeMetadata(metadata: wordsJson);
+  Future<void> updateMetadata(
+      {required List<Word> words, required int guessNo}) async {
+    final wordMapList = words.map((word) => word.toMap()).toList();
+    final String newMetadata = jsonEncode(
+      {
+        "guessNo": guessNo,
+        "wordMapList": wordMapList,
+      },
+    );
+    await sdk.changeMetadata(metadata: newMetadata);
   }
 
-  List<Word>? parseMetadata(String? metadata) {
+  PeerData? parseMetadata(String? metadata) {
     if (metadata == null) return null;
-    List<Word> wordList = jsonDecode(metadata)
+    final Map<String, dynamic> parsedMetadata = jsonDecode(metadata);
+    final int guessNo = parsedMetadata["guessNo"];
+    final List<Word> wordList = parsedMetadata["wordMapList"]
         .map<Word>(
           (element) => Word.fromMap(element),
         )
         .toList();
-    return wordList;
+    return PeerData(wordList: wordList, guessNo: guessNo);
   }
 }

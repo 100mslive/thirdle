@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_actions.dart';
+import 'package:thirdle/meet_logic/models/peer_data.dart';
 
 class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];
   late MeetActions actions;
-  Map<String, List<Word>?> peerWords = {};
+  Map<String, PeerData?> peerData = {};
 
   Future<void> init() async {
     await _getPermissions();
@@ -56,7 +56,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
     if (room.peers != null) {
       allPeers = room.peers!;
       room.peers!.map((peer) {
-        peerWords[peer.peerId] = actions.parseMetadata(peer.metadata);
+        peerData[peer.peerId] = actions.parseMetadata(peer.metadata);
       });
     }
     notifyListeners();
@@ -77,7 +77,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
         allPeers.remove(peer);
         break;
       case HMSPeerUpdate.metadataChanged:
-        peerWords[peer.peerId] = actions.parseMetadata(peer.metadata);
+        peerData[peer.peerId] = actions.parseMetadata(peer.metadata);
         break;
       case HMSPeerUpdate.roleUpdated:
       case HMSPeerUpdate.nameChanged:
