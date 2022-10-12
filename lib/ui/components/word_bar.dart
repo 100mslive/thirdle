@@ -34,20 +34,28 @@ class LetterTile extends StatelessWidget {
     return Container(
       height: 50,
       width: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              offset: const Offset(0, 5),
+              blurRadius: 5,
+              spreadRadius: -5)
+        ],
         color: letter.status == LetterStatus.correctLetterWithPosition
-            ? Colors.green
+            ? Color(0xFF62CCA0)
             : (letter.status == LetterStatus.correctLetter)
-                ? Colors.yellow
-                : Color.fromARGB(255, 198, 196, 196),
+                ? Color(0xFFEEBC37)
+                : Color.fromARGB(255, 138, 161, 197),
       ),
       child: Center(
         child: Text(
           letter.value,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

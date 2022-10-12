@@ -7,6 +7,8 @@ import 'package:thirdle/ui/components/guess_word_box.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
 import 'package:thirdle/ui/components/word_bar.dart';
 
+import '../../constants/colors.dart';
+
 class ThirdleBoard extends StatefulWidget {
   const ThirdleBoard({super.key});
 
@@ -36,19 +38,28 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
         }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 150,
-            width: 380,
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: ListView(
-              controller: scrollController,
-              children: thirdleKit.guessWords
-                  .map(
-                    (guessWord) => WordBar(
-                      word: guessWord,
-                    ),
-                  )
-                  .toList(),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Container(
+              height: 150,
+              width: 380,
+              decoration: BoxDecoration(
+                  color: kPrimaryHMSColor,
+                  border: Border.all(
+                    color: Color.fromARGB(255, 122, 142, 156),
+                  ),
+                  borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: ListView(
+                controller: scrollController,
+                children: thirdleKit.guessWords
+                    .map(
+                      (guessWord) => WordBar(
+                        word: guessWord,
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
           ),
           Container(
