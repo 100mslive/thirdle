@@ -52,7 +52,7 @@ class LetterTile extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          letter.value,
+          letter.value.toUpperCase(),
           style: const TextStyle(
             fontSize: 18,
             color: Colors.white,

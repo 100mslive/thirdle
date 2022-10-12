@@ -137,7 +137,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             },
             child: Center(
               child: Text(
-                letter,
+                letter.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 19,
                   color: Colors.white,
