@@ -46,7 +46,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
               decoration: BoxDecoration(
                   color: kPrimaryHMSColor,
                   border: Border.all(
-                    color: Color.fromARGB(255, 122, 142, 156),
+                    color: const Color.fromARGB(255, 122, 142, 156),
                   ),
                   borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.symmetric(vertical: 15),
@@ -65,7 +65,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           Container(
             width: 380,
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: GuessWordBox(),
+            child: const GuessWordBox(),
           ),
           ThirdleKeyboard(
             maxWordLimit: thirdleKit.wordSize,

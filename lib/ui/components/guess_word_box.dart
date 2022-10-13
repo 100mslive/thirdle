@@ -4,7 +4,7 @@ import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
 
 class GuessWordBox extends StatefulWidget {
-  GuessWordBox({super.key, this.noOfLetters = 5});
+  const GuessWordBox({super.key, this.noOfLetters = 5});
 
   final int noOfLetters;
 

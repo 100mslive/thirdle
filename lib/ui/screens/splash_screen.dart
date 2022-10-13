@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../app.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return new Timer(Duration(seconds: 3), onDoneLoading);
+    return Timer(const Duration(seconds: 3), onDoneLoading);
   }
 
   onDoneLoading() async {
@@ -31,9 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0C0F15),
+      backgroundColor: const Color(0xFF0C0F15),
       body: Container(
-        padding: EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(5.0),
         child: Center(
           child: Text(
             'Thirdle',

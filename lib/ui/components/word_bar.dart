@@ -45,10 +45,10 @@ class LetterTile extends StatelessWidget {
               spreadRadius: -5)
         ],
         color: letter.status == LetterStatus.correctLetterWithPosition
-            ? Color(0xFF62CCA0)
+            ? const Color(0xFF62CCA0)
             : (letter.status == LetterStatus.correctLetter)
-                ? Color(0xFFEEBC37)
-                : Color.fromARGB(255, 138, 161, 197),
+                ? const Color(0xFFEEBC37)
+                : const Color.fromARGB(255, 138, 161, 197),
       ),
       child: Center(
         child: Text(

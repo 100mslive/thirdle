@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return OKToast(
         child: MaterialApp(
       theme: ThemeData(primaryColor: const Color(0xFF2E80FF)),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     ));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:provider/provider.dart';
@@ -37,21 +39,36 @@ class PeerTile extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: Column(
             children: [
-              SizedBox(
-                height: 15,
-                child: Text(
-                  peer.name,
-                  style: const TextStyle(fontSize: 12, color: Colors.white),
+              const Spacer(),
+              Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
                 ),
-              ),
-              peerWordList != null
-                  ? MiniWordBar(
-                      word: peerWordList.guessNo > 0
-                          ? peerWordList.wordList
-                              .elementAt(peerWordList.guessNo - 1)
-                          : peerWordList.wordList.first,
-                    )
-                  : const SizedBox(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 15,
+                        child: Text(
+                          peer.name,
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.white),
+                        ),
+                      ),
+                      peerWordList != null
+                          ? MiniWordBar(
+                              word: peerWordList.guessNo > 0
+                                  ? peerWordList.wordList
+                                      .elementAt(peerWordList.guessNo - 1)
+                                  : peerWordList.wordList.first,
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                ),
+              )
 
               // TODO: This can be shown on onTap with GestureDetector/InkWell
 
