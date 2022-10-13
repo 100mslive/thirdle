@@ -178,10 +178,10 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
                         context.read<GameKit>().currentGuessWord.length - 1));
               }
             },
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.backspace,
-                size: widget.letterStyle.fontSize,
+                size: 20,
                 color: Colors.white,
               ),
             ),
