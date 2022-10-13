@@ -1,8 +1,9 @@
-import 'dart:ffi';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
@@ -15,79 +16,88 @@ class PeerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final PeerData? peerWordList =
         context.watch<MeetKit>().peerData[peer.peerId];
-    return Stack(
-      fit: StackFit.passthrough,
-      alignment: Alignment.bottomCenter,
-      children: [
-        SizedBox(
-          height: 150,
-          width: 100,
-          child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
-              //context.read<MeetKit>().peerTracks[peer.peerId] != null
-              ? HMSVideoView(track: peer.videoTrack!
-                  // context.read<MeetKit>().peerTracks[peer.peerId]
-                  //     as HMSVideoTrack,
-                  )
-              : const Center(
-                  child: Text(
-                    "No Video",
-                    style: TextStyle(fontSize: 10, color: Colors.white),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: kSecondaryHMSColor,
+              offset: const Offset(0, 0.5),
+            ),
+            BoxShadow(
+              color: kSecondaryHMSColor.withOpacity(0.6),
+              blurRadius: 10.0,
+              blurStyle: BlurStyle.normal,
+              offset: const Offset(4, 2),
+            ),
+          ]),
+      clipBehavior: Clip.antiAlias,
+      height: 135,
+      child: Stack(
+        fit: StackFit.passthrough,
+        alignment: Alignment.bottomCenter,
+        children: [
+          SizedBox(
+            height: 135,
+            width: 100,
+            child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
+                //context.read<MeetKit>().peerTracks[peer.peerId] != null
+                ? HMSVideoView(track: peer.videoTrack!
+                    // context.read<MeetKit>().peerTracks[peer.peerId]
+                    //     as HMSVideoTrack,
+                    )
+                : const Center(
+                    child: Text(
+                      "No Video",
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    ),
                   ),
-                ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            children: [
-              const Spacer(),
-              Container(
-                width: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 15,
-                        child: Text(
-                          peer.name,
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.white),
-                        ),
-                      ),
-                      peerWordList != null
-                          ? MiniWordBar(
-                              word: peerWordList.guessNo > 0
-                                  ? peerWordList.wordList
-                                      .elementAt(peerWordList.guessNo - 1)
-                                  : peerWordList.wordList.first,
-                            )
-                          : const SizedBox(),
-                    ],
-                  ),
-                ),
-              )
-
-              // TODO: This can be shown on onTap with GestureDetector/InkWell
-
-              // peerWordList != null
-              //     ? SizedBox(
-              //         height: 100,
-              //         child: Column(
-              //           children: peerWordList.wordList
-              //               .map((word) => MiniWordBar(
-              //                     word: word,
-              //                   ))
-              //               .toList(),
-              //         ),
-              //       )
-              //     : const SizedBox(),
-            ],
           ),
-        ),
-      ],
+          Positioned(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                  child: Container(
+                    height: 50,
+                    width: 100,
+                    decoration:
+                        BoxDecoration(color: kPrimaryHMSColor.withOpacity(0.5)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 15,
+                            child: Text(
+                              peer.name,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          peerWordList != null
+                              ? MiniWordBar(
+                                  word: peerWordList.guessNo > 0
+                                      ? peerWordList.wordList
+                                          .elementAt(peerWordList.guessNo - 1)
+                                      : peerWordList.wordList.first,
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

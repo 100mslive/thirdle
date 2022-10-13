@@ -30,21 +30,19 @@ class _MeetBoardState extends State<MeetBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        height: 140,
-        width: 380,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          children: context
-              .watch<MeetKit>()
-              .allPeers
-              .map<Widget>(
-                (peer) => PeerTile(peer: peer),
-              )
-              .toList(),
-        ),
+    return SizedBox(
+      height: 135,
+      width: 380,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: context
+            .watch<MeetKit>()
+            .allPeers
+            .map<Widget>(
+              (peer) => PeerTile(peer: peer),
+            )
+            .toList(),
       ),
     );
   }

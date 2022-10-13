@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/screens/meet_board.dart';
 import 'package:thirdle/ui/screens/thirdle_board.dart';
@@ -17,7 +18,7 @@ class App extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: kPrimaryHMSColor,
         body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: ListView(
