@@ -41,10 +41,10 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Container(
-              height: 150,
+              height: 250,
               width: 380,
               decoration: BoxDecoration(
-                  color: kPrimaryHMSColor,
+                  color: kGuessBoxColor,
                   border: Border.all(
                     color: const Color.fromARGB(255, 122, 142, 156),
                   ),
