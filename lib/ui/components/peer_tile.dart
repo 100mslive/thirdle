@@ -42,11 +42,7 @@ class PeerTile extends StatelessWidget {
             height: 135,
             width: 100,
             child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
-                //context.read<MeetKit>().peerTracks[peer.peerId] != null
-                ? HMSVideoView(track: peer.videoTrack!
-                    // context.read<MeetKit>().peerTracks[peer.peerId]
-                    //     as HMSVideoTrack,
-                    )
+                ? HMSVideoView(track: peer.videoTrack!)
                 : const Center(
                     child: Text(
                       "No Video",
@@ -134,11 +130,14 @@ class MiniLetterTile extends StatelessWidget {
       width: 12,
       margin: const EdgeInsets.symmetric(horizontal: 3),
       decoration: BoxDecoration(
-        color: letter.status == LetterStatus.correctLetterWithPosition
-            ? Colors.green
-            : (letter.status == LetterStatus.correctLetter)
-                ? Colors.yellow
-                : Colors.grey,
+        borderRadius: BorderRadius.circular(8),
+        color: letter.value == ''
+            ? kLetterEmptyColor
+            : (letter.status == LetterStatus.correctLetterWithPosition
+                ? kLetterGreenColor
+                : (letter.status == LetterStatus.correctLetter)
+                    ? kLetterYellowColor
+                    : kLetterGreyColor),
       ),
       child: const SizedBox(),
     );

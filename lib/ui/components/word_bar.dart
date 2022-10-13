@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
 
@@ -44,11 +45,13 @@ class LetterTile extends StatelessWidget {
               blurRadius: 5,
               spreadRadius: -5)
         ],
-        color: letter.status == LetterStatus.correctLetterWithPosition
-            ? const Color(0xFF62CCA0)
-            : (letter.status == LetterStatus.correctLetter)
-                ? const Color(0xFFEEBC37)
-                : const Color.fromARGB(255, 138, 161, 197),
+        color: letter.value == ' '
+            ? kLetterEmptyColor
+            : (letter.status == LetterStatus.correctLetterWithPosition
+                ? kLetterGreenColor
+                : (letter.status == LetterStatus.correctLetter)
+                    ? kLetterYellowColor
+                    : kLetterGreyColor),
       ),
       child: Center(
         child: Text(

@@ -114,34 +114,39 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
 
   // Letter button widget
   Widget buttonLetter(String letter) {
-    return ClipRRect(
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
-      child: SizedBox(
-        height: widget.height ?? height,
-        width: widget.width ?? width,
-        child: Material(
-          type: MaterialType.button,
-          color: kPrimaryHMSColor,
-          child: InkWell(
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
-            onTap: () {
-              HapticFeedback.heavyImpact();
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: kThirdleBoardLetterColor.withOpacity(0.5),
+              offset: Offset(1, 1),
+            )
+          ]),
+      height: widget.height ?? height,
+      width: widget.width ?? width,
+      child: Material(
+        type: MaterialType.button,
+        color: kThirdleBoardLetterColor,
+        child: InkWell(
+          highlightColor: widget.highlightColor,
+          splashColor: widget.splashColor,
+          onTap: () {
+            HapticFeedback.heavyImpact();
 
-              if (context.read<GameKit>().currentGuessWord.length ==
-                  widget.maxWordLimit) {
-                return;
-              }
-              context.read<GameKit>().updateGuessWord(
-                  context.read<GameKit>().currentGuessWord + letter);
-            },
-            child: Center(
-              child: Text(
-                letter.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 19,
-                  color: Colors.white,
-                ),
+            if (context.read<GameKit>().currentGuessWord.length ==
+                widget.maxWordLimit) {
+              return;
+            }
+            context.read<GameKit>().updateGuessWord(
+                context.read<GameKit>().currentGuessWord + letter);
+          },
+          child: Center(
+            child: Text(
+              letter.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 19,
+                color: Colors.white,
               ),
             ),
           ),
