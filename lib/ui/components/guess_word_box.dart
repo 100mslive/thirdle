@@ -44,7 +44,9 @@ class GuessLetterBox extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-            color: kLetterGreyColor, borderRadius: BorderRadius.circular(10)),
+            color: kLetterGreyColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: kSecondaryHMSColor)),
         child: Center(
           child: Text(
             letterText.toUpperCase(),

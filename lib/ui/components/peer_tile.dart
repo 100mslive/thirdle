@@ -159,7 +159,7 @@ class MiniLetterTile extends StatelessWidget {
                 ? kLetterGreenColor
                 : (letter.status == LetterStatus.correctLetter)
                     ? kLetterYellowColor
-                    : kLetterGreyColor),
+                    : Colors.white),
       ),
       child: const SizedBox(),
     );

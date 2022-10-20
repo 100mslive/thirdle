@@ -40,10 +40,10 @@ class LetterTile extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              offset: const Offset(0, 5),
-              blurRadius: 5,
-              spreadRadius: -5)
+            color: kSecondaryHMSColor.withOpacity(0.5),
+            offset: const Offset(2, 2),
+            blurRadius: 2,
+          )
         ],
         color: letter.value == ' '
             ? kLetterEmptyColor

@@ -66,13 +66,13 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           ),
           Container(
             width: 380,
-            padding: const EdgeInsets.only(bottom: 5),
+            padding: const EdgeInsets.only(bottom: 10),
             child: const GuessWordBox(),
           ),
           ThirdleKeyboard(
-            height: 34,
-            width: 22,
-            borderRadius: BorderRadius.circular(4),
+            height: 38,
+            width: 24,
+            borderRadius: BorderRadius.circular(8),
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
               final gameKit = context.read<GameKit>();
