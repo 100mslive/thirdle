@@ -9,13 +9,21 @@ import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/meet_logic/models/peer_data.dart';
 
-class PeerTile extends StatelessWidget {
+class PeerTile extends StatefulWidget {
   const PeerTile({required this.peer, super.key});
   final HMSPeer peer;
+
+  @override
+  State<PeerTile> createState() => _PeerTileState();
+}
+
+class _PeerTileState extends State<PeerTile> {
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     final PeerData? peerWordList =
-        context.watch<MeetKit>().peerData[peer.peerId];
+        context.watch<MeetKit>().peerData[widget.peer.peerId];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -34,65 +42,79 @@ class PeerTile extends StatelessWidget {
           ]),
       clipBehavior: Clip.antiAlias,
       height: 135,
-      child: Stack(
-        fit: StackFit.passthrough,
-        alignment: Alignment.bottomCenter,
-        children: [
-          SizedBox(
-            height: 135,
-            width: 100,
-            child: (peer.videoTrack != null && !peer.videoTrack!.isMute)
-                ? HMSVideoView(track: peer.videoTrack!)
-                : const Center(
-                    child: Text(
-                      "No Video",
-                      style: TextStyle(fontSize: 10, color: Colors.white),
+      child: InkWell(
+        onTap: (() {
+          setState(() {
+            isExpanded = !isExpanded;
+          });
+        }),
+        child: Stack(
+          fit: StackFit.passthrough,
+          alignment: Alignment.bottomCenter,
+          children: [
+            SizedBox(
+              height: 135,
+              width: 100,
+              child: (widget.peer.videoTrack != null &&
+                      !widget.peer.videoTrack!.isMute)
+                  ? HMSVideoView(track: widget.peer.videoTrack!)
+                  : const Center(
+                      child: Text(
+                        "No Video",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                     ),
-                  ),
-          ),
-          Positioned(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: ClipRRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    decoration:
-                        BoxDecoration(color: kPrimaryHMSColor.withOpacity(0.5)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 15,
-                            child: Text(
-                              peer.name,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
+            ),
+            Positioned(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                    child: Container(
+                      height: isExpanded ? 110 : 42,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          color: kPrimaryHMSColor.withOpacity(0.5)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 15,
+                              child: Text(
+                                widget.peer.name,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                          ),
-                          peerWordList != null
-                              ? MiniWordBar(
+                            if (peerWordList != null)
+                              if (isExpanded)
+                                ...peerWordList.wordList
+                                    .map((word) => MiniWordBar(word: word))
+                                    .toList()
+                              else
+                                MiniWordBar(
                                   word: peerWordList.guessNo > 0
                                       ? peerWordList.wordList
                                           .elementAt(peerWordList.guessNo - 1)
                                       : peerWordList.wordList.first,
                                 )
-                              : const SizedBox(),
-                        ],
+                            else
+                              const SizedBox(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
