@@ -19,15 +19,18 @@ class App extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: kPrimaryHMSColor,
-        body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            child: ListView(
-              shrinkWrap: true,
-              children: const [
-                MeetBoard(),
-                ThirdleBoard(),
-              ],
-            )),
+        body: Center(
+          child: Container(
+              constraints: const BoxConstraints(maxWidth: 380),
+              padding: const EdgeInsets.symmetric(vertical: 25),
+              child: ListView(
+                shrinkWrap: true,
+                children: const [
+                  MeetBoard(),
+                  ThirdleBoard(),
+                ],
+              )),
+        ),
       ),
     );
   }
