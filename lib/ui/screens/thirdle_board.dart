@@ -27,22 +27,25 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
   Widget build(BuildContext context) {
     return Consumer<GameKit>(
       builder: ((context, thirdleKit, child) {
-        final ScrollController scrollController = ScrollController();
+        // final ScrollController scrollController = ScrollController();
 
-        void animateToCurrentWord() {
-          scrollController.animateTo(
-            thirdleKit.guessNo * 35.0,
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.bounceInOut,
-          );
-        }
+        // void animateToCurrentWord() {
+        //   scrollController.animateTo(
+        //     thirdleKit.guessNo * 35.0,
+        //     duration: const Duration(milliseconds: 600),
+        //     curve: Curves.bounceInOut,
+        //   );
+        // }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30.0,
+              vertical: 10,
+            ),
             child: Container(
-              height: 250,
-              width: 380,
+              height: 325,
+              width: 350,
               decoration: BoxDecoration(
                   color: kGuessBoxColor,
                   border: Border.all(
@@ -50,8 +53,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   ),
                   borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: ListView(
-                controller: scrollController,
+              child: Column(
+                // ListView(
+                // controller: scrollController,
                 children: thirdleKit.guessWords
                     .map(
                       (guessWord) => WordBar(
@@ -64,7 +68,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
           ),
           Container(
             width: 380,
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.only(bottom: 5),
             child: const GuessWordBox(),
           ),
           ThirdleKeyboard(
@@ -80,7 +84,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   words: gameKit.guessWords,
                   guessNo: gameKit.guessNo,
                 );
-                animateToCurrentWord();
+                // animateToCurrentWord();
               } else {
                 showToastWidget(
                     ClipRRect(
