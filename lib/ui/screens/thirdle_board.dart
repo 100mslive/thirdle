@@ -38,32 +38,30 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
         // }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30.0,
-              vertical: 10,
+          Container(
+            height: 325,
+            width: 350,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 25.0,
+              vertical: 15,
             ),
-            child: Container(
-              height: 325,
-              width: 350,
-              decoration: BoxDecoration(
-                  color: kGuessBoxColor,
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 122, 142, 156),
-                  ),
-                  borderRadius: BorderRadius.circular(20)),
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Column(
-                // ListView(
-                // controller: scrollController,
-                children: thirdleKit.guessWords
-                    .map(
-                      (guessWord) => WordBar(
-                        word: guessWord,
-                      ),
-                    )
-                    .toList(),
-              ),
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            decoration: BoxDecoration(
+                color: kGuessBoxColor,
+                border: Border.all(
+                  color: const Color.fromARGB(255, 122, 142, 156),
+                ),
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              // ListView(
+              // controller: scrollController,
+              children: thirdleKit.guessWords
+                  .map(
+                    (guessWord) => WordBar(
+                      word: guessWord,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           Container(
@@ -72,6 +70,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
             child: const GuessWordBox(),
           ),
           ThirdleKeyboard(
+            height: 34,
+            width: 22,
+            borderRadius: BorderRadius.circular(4),
             maxWordLimit: thirdleKit.wordSize,
             onEnterTap: (guessWordString) async {
               final gameKit = context.read<GameKit>();

@@ -11,8 +11,8 @@ class ThirdleKeyboard extends StatefulWidget {
   const ThirdleKeyboard({
     Key? key,
     required this.maxWordLimit,
-    this.height,
-    this.width,
+    required this.height,
+    required this.width,
     this.spacing = 8.0,
     this.borderRadius,
     this.color = const Color(0xFF2E80FF),
@@ -49,8 +49,8 @@ class ThirdleKeyboard extends StatefulWidget {
   final bool enableCapsLock;
 
   // height and width of each key
-  final double? height;
-  final double? width;
+  final double height;
+  final double width;
 
   // The color displayed when the key is pressed
   final Color? highlightColor;
@@ -61,14 +61,8 @@ class ThirdleKeyboard extends StatefulWidget {
 }
 
 class ThirdleKeyboardState extends State<ThirdleKeyboard> {
-  double height = 0;
-  double width = 0;
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-    height = screenHeight > 800 ? screenHeight * 0.059 : screenHeight * 0.07;
-    width = screenWidth > 350 ? screenWidth * 0.082 : screenWidth * 0.083;
     var keyboardLayout = layout();
     return Column(
       children: [
@@ -103,7 +97,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
             widget.enableBackSpace
                 ? backSpace()
                 : SizedBox(
-                    width: (widget.width ?? width) + 20,
+                    width: widget.width + 20,
                   ),
           ],
         ),
@@ -115,16 +109,18 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
   // Letter button widget
   Widget buttonLetter(String letter) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
-          borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: kThirdleBoardLetterColor.withOpacity(0.5),
-              offset: Offset(1, 1),
-            )
-          ]),
-      height: widget.height ?? height,
-      width: widget.width ?? width,
+        borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            offset: const Offset(4, 2),
+          ),
+        ],
+      ),
+      height: widget.height,
+      width: widget.width,
       child: Material(
         type: MaterialType.button,
         color: kThirdleBoardLetterColor,
@@ -157,14 +153,22 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
 
   // Backspace button widget
   Widget backSpace() {
-    return ClipRRect(
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            offset: const Offset(4, 3),
+          ),
+        ],
+      ),
       child: SizedBox(
-        height: widget.height ?? height,
-        width: (widget.width ?? width) + 20,
+        height: widget.height,
+        width: widget.width + 25,
         child: Material(
           type: MaterialType.button,
-          color: kPrimaryHMSColor,
+          color: kThirdleBoardLetterColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
@@ -193,14 +197,22 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
 
   // Capslock button widget
   Widget enter() {
-    return ClipRRect(
-      borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            offset: const Offset(4, 3),
+          ),
+        ],
+      ),
       child: SizedBox(
-        height: widget.height ?? height,
-        width: (widget.width ?? width) + 20,
+        height: widget.height,
+        width: widget.width + 25,
         child: Material(
           type: MaterialType.button,
-          color: kPrimaryHMSColor,
+          color: kThirdleBoardLetterColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
