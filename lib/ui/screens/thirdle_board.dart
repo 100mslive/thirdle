@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
+import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/guess_word_box.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
@@ -17,6 +18,8 @@ class ThirdleBoard extends StatefulWidget {
 }
 
 class _ThirdleBoardState extends State<ThirdleBoard> {
+  bool isWin = false;
+
   @override
   void initState() {
     context.read<GameKit>().startNewRound(9);
@@ -36,6 +39,21 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
         //     curve: Curves.bounceInOut,
         //   );
         // }
+
+        final latestWord = thirdleKit.guessNo > 0
+            ? thirdleKit.guessWords.elementAt(thirdleKit.guessNo - 1)
+            : thirdleKit.guessWords.first;
+
+        bool flag = true;
+        for (var letter in latestWord.letters) {
+          if (letter.status != LetterStatus.correctLetterWithPosition) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          isWin = true;
+        }
 
         return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
@@ -64,47 +82,63 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                   .toList(),
             ),
           ),
-          Container(
-            width: 380,
-            padding: const EdgeInsets.only(bottom: 10),
-            child: const GuessWordBox(),
-          ),
-          ThirdleKeyboard(
-            height: 38,
-            width: 24,
-            borderRadius: BorderRadius.circular(8),
-            maxWordLimit: thirdleKit.wordSize,
-            onEnterTap: (guessWordString) async {
-              final gameKit = context.read<GameKit>();
-              final meetKit = context.read<MeetKit>();
+          isWin
+              ? SizedBox(
+                  width: 250,
+                  child: Image.asset("assets/you_win.png"),
+                )
+              : thirdleKit.guessNo >= 5
+                  ? SizedBox(
+                      width: 250,
+                      child: Image.asset("assets/game_over.png"),
+                    )
+                  : Column(
+                      children: [
+                        Container(
+                          width: 380,
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: const GuessWordBox(),
+                        ),
+                        ThirdleKeyboard(
+                          height: 38,
+                          width: 24,
+                          borderRadius: BorderRadius.circular(8),
+                          maxWordLimit: thirdleKit.wordSize,
+                          onEnterTap: (guessWordString) async {
+                            final gameKit = context.read<GameKit>();
+                            final meetKit = context.read<MeetKit>();
 
-              thirdleKit.makeGuess(guessWordString);
+                            thirdleKit.makeGuess(guessWordString);
 
-              if (gameKit.guessStatus == GuessStatus.validGuess) {
-                meetKit.actions.updateMetadata(
-                  words: gameKit.guessWords,
-                  guessNo: gameKit.guessNo,
-                );
-                // animateToCurrentWord();
-              } else {
-                showToastWidget(
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      child: Container(
-                          height: 40,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                          ),
-                          child: const Center(
-                            child: Text("Invalid Word",
-                                style: TextStyle(color: Colors.white)),
-                          )),
-                    ),
-                    position: ToastPosition.bottom);
-              }
-            },
-          ),
+                            if (gameKit.guessStatus == GuessStatus.validGuess) {
+                              meetKit.actions.updateMetadata(
+                                words: gameKit.guessWords,
+                                guessNo: gameKit.guessNo,
+                              );
+                              // animateToCurrentWord();
+                            } else {
+                              showToastWidget(
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8)),
+                                    child: Container(
+                                        height: 40,
+                                        width: 200,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                        ),
+                                        child: const Center(
+                                          child: Text("Invalid Word",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        )),
+                                  ),
+                                  position: ToastPosition.bottom);
+                            }
+                          },
+                        ),
+                      ],
+                    )
         ]);
       }),
     );

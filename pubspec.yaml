@@ -28,3 +28,7 @@ flutter:
   assets:
     - assets/answer_words.txt
     - assets/valid_words.txt
+    # credit: https://pngimg.com/image/83332
+    - assets/game_over.png
+    # credit: https://pngtree.com/freepng/game-text-you-win-retro-glitch-effect_6006883.html
+    - assets/you_win.png
