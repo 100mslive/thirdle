@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,20 @@ class PeerTile extends StatefulWidget {
 
 class _PeerTileState extends State<PeerTile> {
   bool isExpanded = false;
+  final controller = ConfettiController();
+  bool isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.play();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +127,10 @@ class _PeerTileState extends State<PeerTile> {
                   ),
                 ),
               ),
+            ),
+            ConfettiWidget(
+              confettiController: controller,
+              shouldLoop: true,
             ),
           ],
         ),
