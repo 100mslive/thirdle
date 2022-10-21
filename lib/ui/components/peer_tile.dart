@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:confetti/confetti.dart';
@@ -24,12 +25,6 @@ class _PeerTileState extends State<PeerTile> {
   bool isPlaying = false;
 
   @override
-  void initState() {
-    super.initState();
-    controller.play();
-  }
-
-  @override
   void dispose() {
     controller.dispose();
     super.dispose();
@@ -39,6 +34,24 @@ class _PeerTileState extends State<PeerTile> {
   Widget build(BuildContext context) {
     final PeerData? peerWordList =
         context.watch<MeetKit>().peerData[widget.peer.peerId];
+
+    if (peerWordList != null) {
+      final latestWord = peerWordList.guessNo > 0
+          ? peerWordList.wordList.elementAt(peerWordList.guessNo - 1)
+          : peerWordList.wordList.first;
+
+      bool flag = true;
+      for (var letter in latestWord.letters) {
+        if (letter.status != LetterStatus.correctLetterWithPosition) {
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        controller.play();
+      }
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -128,9 +141,19 @@ class _PeerTileState extends State<PeerTile> {
                 ),
               ),
             ),
-            ConfettiWidget(
-              confettiController: controller,
-              shouldLoop: true,
+            Positioned(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ConfettiWidget(
+                  confettiController: controller,
+                  shouldLoop: true,
+                  blastDirection: -pi / 2,
+                  emissionFrequency: 0.01,
+                  numberOfParticles: 20,
+                  maxBlastForce: 100,
+                  minBlastForce: 80,
+                ),
+              ),
             ),
           ],
         ),
