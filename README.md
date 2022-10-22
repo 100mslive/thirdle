@@ -1,16 +1,23 @@
-# thirdle
+# Thirdle
 
-A new Flutter project.
+[![Thirdle Demo Video](https://img.youtube.com/vi/9nsgLzq8xJo/0.jpg)](https://www.youtube.com/watch?v=9nsgLzq8xJo)
 
-## Getting Started
+## What is special?
 
-This project is a starting point for a Flutter application.
+A video call while playing Wordle can’t be called a multiplayer game right? We wanted to share the players’ guess words on every new guess they make.
 
-A few resources to get you started if this is your first Flutter project:
+We did it seamlessly without needing a backend (Firebase, etc), but instead using "Peer Metadata" built into the 100ms SDK.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Built with 💙 using [Flutter](https://flutter.dev/) and [100ms SDK](https://www.100ms.live/).  
+
+## Team
+
+<table>
+  <tr>
+<td align="center"><a href="https://github.com/coder-with-a-bushido"><img src="https://avatars.githubusercontent.com/u/62273306?v=4" width="100px;" alt=""/><br /><sub><b>Karthikeyan S</b></sub></a></td>
+<td align="center"><a href="https://github.com/adityathakurxd"><img src="https://avatars.githubusercontent.com/u/53579386?v=4" width="100px;" alt=""/><br /><sub><b>Aditya Thakur</b></sub></a></td>
+  </tr>
+</table>
+
