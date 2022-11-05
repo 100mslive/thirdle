@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/screens/meet_board.dart';
 import 'package:thirdle/ui/screens/thirdle_board.dart';
+import 'package:thirdle/utils/palette.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: kPrimaryHMSColor,
+        backgroundColor: Palette.primaryColor,
         body: Center(
           child: Container(
               constraints: const BoxConstraints(maxWidth: 380),

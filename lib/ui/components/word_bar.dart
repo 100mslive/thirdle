@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
+import 'package:thirdle/utils/palette.dart';
 
 class WordBar extends StatelessWidget {
   const WordBar({required this.word, super.key});
@@ -40,18 +40,18 @@ class LetterTile extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: kSecondaryHMSColor.withOpacity(0.5),
+            color: Palette.secondaryColor.withOpacity(0.5),
             offset: const Offset(2, 2),
             blurRadius: 2,
           )
         ],
         color: letter.value == ' '
-            ? kLetterEmptyColor
+            ? Palette.wordleLetterTileEmptyColor
             : (letter.status == LetterStatus.correctLetterWithPosition
-                ? kLetterGreenColor
+                ? Palette.wordleLetterTileGreenColor
                 : (letter.status == LetterStatus.correctLetter)
-                    ? kLetterYellowColor
-                    : kLetterGreyColor),
+                    ? Palette.wordleLetterTileYellowColor
+                    : Palette.wordleLetterTileGreyColor),
       ),
       child: Center(
         child: Text(

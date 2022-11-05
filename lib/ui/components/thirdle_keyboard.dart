@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
 
-import '../../constants/colors.dart';
+import '../../utils/palette.dart';
 
 // Credits: https://github.com/Zfinix/worddle
 
@@ -114,7 +114,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            color: Palette.keyboardLetterTileColor.withOpacity(0.5),
             offset: const Offset(4, 2),
           ),
         ],
@@ -123,7 +123,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
       width: widget.width,
       child: Material(
         type: MaterialType.button,
-        color: kThirdleBoardLetterColor,
+        color: Palette.keyboardLetterTileColor,
         child: InkWell(
           highlightColor: widget.highlightColor,
           splashColor: widget.splashColor,
@@ -158,7 +158,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            color: Palette.keyboardLetterTileColor.withOpacity(0.5),
             offset: const Offset(4, 3),
           ),
         ],
@@ -168,7 +168,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: widget.width + 25,
         child: Material(
           type: MaterialType.button,
-          color: kThirdleBoardLetterColor,
+          color: Palette.keyboardLetterTileColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,
@@ -202,7 +202,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         borderRadius: widget.borderRadius ?? BorderRadius.circular(0),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: kThirdleBoardLetterColor.withOpacity(0.5),
+            color: Palette.keyboardLetterTileColor.withOpacity(0.5),
             offset: const Offset(4, 3),
           ),
         ],
@@ -212,7 +212,7 @@ class ThirdleKeyboardState extends State<ThirdleKeyboard> {
         width: widget.width + 25,
         child: Material(
           type: MaterialType.button,
-          color: kThirdleBoardLetterColor,
+          color: Palette.keyboardLetterTileColor,
           child: InkWell(
             highlightColor: widget.highlightColor,
             splashColor: widget.splashColor,

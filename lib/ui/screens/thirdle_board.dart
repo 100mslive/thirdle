@@ -8,7 +8,7 @@ import 'package:thirdle/ui/components/guess_word_box.dart';
 import 'package:thirdle/ui/components/thirdle_keyboard.dart';
 import 'package:thirdle/ui/components/word_bar.dart';
 
-import '../../constants/colors.dart';
+import '../../utils/palette.dart';
 
 class ThirdleBoard extends StatefulWidget {
   const ThirdleBoard({super.key});
@@ -65,7 +65,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
             ),
             padding: const EdgeInsets.symmetric(vertical: 15),
             decoration: BoxDecoration(
-                color: kGuessBoxColor,
+                color: Palette.cardColor,
                 border: Border.all(
                   color: const Color.fromARGB(255, 122, 142, 156),
                 ),

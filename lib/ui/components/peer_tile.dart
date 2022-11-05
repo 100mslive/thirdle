@@ -5,11 +5,11 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/models/letter_model.dart';
 import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/meet_logic/models/peer_data.dart';
+import 'package:thirdle/utils/palette.dart';
 
 class PeerTile extends StatefulWidget {
   const PeerTile({required this.peer, super.key});
@@ -58,11 +58,11 @@ class _PeerTileState extends State<PeerTile> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: kSecondaryHMSColor,
+              color: Palette.secondaryColor,
               offset: const Offset(0, 0.5),
             ),
             BoxShadow(
-              color: kSecondaryHMSColor.withOpacity(0.6),
+              color: Palette.secondaryColor.withOpacity(0.6),
               blurRadius: 10.0,
               blurStyle: BlurStyle.normal,
               offset: const Offset(4, 2),
@@ -103,7 +103,7 @@ class _PeerTileState extends State<PeerTile> {
                       height: isExpanded ? 110 : 42,
                       width: 100,
                       decoration: BoxDecoration(
-                          color: kPrimaryHMSColor.withOpacity(0.5)),
+                          color: Palette.primaryColor.withOpacity(0.5)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Column(
@@ -196,11 +196,11 @@ class MiniLetterTile extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: letter.value == ''
-            ? kLetterEmptyColor
+            ? Palette.wordleLetterTileEmptyColor
             : (letter.status == LetterStatus.correctLetterWithPosition
-                ? kLetterGreenColor
+                ? Palette.wordleLetterTileGreenColor
                 : (letter.status == LetterStatus.correctLetter)
-                    ? kLetterYellowColor
+                    ? Palette.wordleLetterTileYellowColor
                     : Colors.white),
       ),
       child: const SizedBox(),

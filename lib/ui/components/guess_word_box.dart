@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/constants/colors.dart';
 import 'package:thirdle/game_logic/game_kit.dart';
+import 'package:thirdle/utils/palette.dart';
 
 class GuessWordBox extends StatefulWidget {
   const GuessWordBox({super.key, this.noOfLetters = 5});
@@ -44,9 +44,9 @@ class GuessLetterBox extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-            color: kLetterGreyColor,
+            color: Palette.wordleLetterTileGreyColor,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: kSecondaryHMSColor)),
+            border: Border.all(color: Palette.secondaryColor)),
         child: Center(
           child: Text(
             letterText.toUpperCase(),
