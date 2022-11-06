@@ -5,29 +5,36 @@ import 'package:http/http.dart' as http;
 import 'package:thirdle/game_logic/models/word_model.dart';
 import 'package:thirdle/meet_logic/meet_kit.dart';
 import 'package:thirdle/meet_logic/models/peer_data.dart';
+import 'package:thirdle/utils/helper.dart';
 
 class MeetActions {
   late HMSConfig config;
   late HMSSDK sdk;
 
   Future<void> joinRoom(
-      {String user = "test_user",
-      String room = "62dad79fb1e780e78c39d2cd"}) async {
+      {required String name,
+      required String room,
+      required String subdomain}) async {
     http.Response response = await http.post(
       Uri.parse(
-          "https://prod-in2.100ms.live/hmsapi/karthikeyan.app.100ms.live/api/token"),
-      body: {'room_id': room, 'user_id': user, 'role': 'host'},
+          "https://prod-in2.100ms.live/hmsapi/$subdomain.app.100ms.live/api/token"),
+      body: {
+        'room_id': room,
+        'user_id': Helper.getRandomString(16),
+        'role': 'host'
+      },
     );
     var body = json.decode(response.body);
     final String token = body['token'];
 
-    config = HMSConfig(authToken: token);
+    config = HMSConfig(authToken: token, userName: name);
     sdk.join(config: config);
   }
 
   Future<void> leaveRoom(MeetKit kit) async {
     sdk.removeUpdateListener(listener: kit);
     await sdk.leave();
+    kit.clear();
   }
 
   Future<void> updateMetadata(

@@ -19,6 +19,11 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
     actions.sdk.addUpdateListener(listener: this);
   }
 
+  void clear() {
+    allPeers.clear();
+    peerData.clear();
+  }
+
   Future<bool> _getPermissions() async {
     if (Platform.isIOS) return true;
     await Permission.camera.request();

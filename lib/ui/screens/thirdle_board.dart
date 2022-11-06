@@ -11,7 +11,7 @@ import 'package:thirdle/ui/components/word_bar.dart';
 import '../../utils/palette.dart';
 
 class ThirdleBoard extends StatefulWidget {
-  const ThirdleBoard({super.key});
+  ThirdleBoard({super.key});
 
   @override
   State<ThirdleBoard> createState() => _ThirdleBoardState();
