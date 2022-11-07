@@ -11,6 +11,8 @@ class MeetActions {
   late HMSConfig config;
   late HMSSDK sdk;
 
+  late String userName, userRoomId, userSubdomain;
+
   Future<void> joinRoom(
       {required String name,
       required String room,
@@ -28,7 +30,11 @@ class MeetActions {
     final String token = body['token'];
 
     config = HMSConfig(authToken: token, userName: name);
-    sdk.join(config: config);
+    sdk.join(config: config).then((value) {
+      userName = name;
+      userRoomId = room;
+      userSubdomain = subdomain;
+    });
   }
 
   Future<void> leaveRoom(MeetKit kit) async {
