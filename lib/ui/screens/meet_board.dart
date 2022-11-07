@@ -33,17 +33,23 @@ class _MeetBoardState extends State<MeetBoard> {
       width: 380,
       child: Row(
         children: [
-          SizedBox(
-            width: 20,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Center(
               child: IconButton(
                 icon: const Icon(Icons.share),
                 color: Palette.secondaryColor,
+                iconSize: 30,
                 onPressed: (() {
                   final meetKit = context.read<MeetKit>();
-
-                  Share.share(
-                      'Join and play Thirdle with me on 100ms://app.thirdle.live?name=${meetKit.actions.userName}&roomId=${meetKit.actions.userRoomId}&subdomain=${meetKit.actions.userSubdomain}');
+                  Uri uri = Uri(
+                      scheme: "http",
+                      host: "app.thirdle.live",
+                      queryParameters: <String, dynamic>{
+                        "roomId": meetKit.actions.userRoomId,
+                        "subdomain": meetKit.actions.userSubdomain,
+                      });
+                  Share.share(uri.toString());
                 }),
               ),
             ),

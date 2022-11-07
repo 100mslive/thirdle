@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
                 <data
-                    android:scheme="100ms"
+                    android:scheme="http"
                     android:host="app.thirdle.live" />
             </intent-filter>
         </activity>

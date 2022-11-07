@@ -11,8 +11,8 @@ import 'package:thirdle/ui/screens/game_screen.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class JoinScreen extends StatelessWidget {
-  JoinScreen({super.key, String? name, String? roomId, String? subdomain})
-      : nameController = TextEditingController(text: name),
+  JoinScreen({super.key, String? roomId, String? subdomain})
+      : nameController = TextEditingController(),
         roomIdController = TextEditingController(text: roomId),
         subdomainController = TextEditingController(text: subdomain);
 

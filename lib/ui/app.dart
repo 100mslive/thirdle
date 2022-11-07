@@ -13,7 +13,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String? name, roomId, subdomain;
+  String? roomId, subdomain;
 
   late StreamSubscription _sub;
 
@@ -35,7 +35,6 @@ class _AppState extends State<App> {
       if (!mounted) return;
       setState(() {
         if (uri != null) {
-          name = uri.queryParameters["name"];
           roomId = uri.queryParameters["roomId"];
           subdomain = uri.queryParameters["subdomain"];
         }
@@ -66,7 +65,6 @@ class _AppState extends State<App> {
       if (!mounted) return;
       setState(() {
         if (uri != null) {
-          name = uri.queryParameters["name"];
           roomId = uri.queryParameters["roomId"];
           subdomain = uri.queryParameters["subdomain"];
         }
@@ -93,7 +91,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return JoinScreen(
-      name: name,
       roomId: roomId,
       subdomain: subdomain,
     );

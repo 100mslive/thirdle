@@ -63,7 +63,7 @@
 				<string>app.thirdle.live</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>100ms</string>
+					<string>http</string>
 				</array>
 			</dict>
 		</array>
