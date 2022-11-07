@@ -11,14 +11,67 @@ import 'package:thirdle/ui/screens/game_screen.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class JoinScreen extends StatelessWidget {
-  JoinScreen({super.key});
+  JoinScreen({super.key, String? name, String? roomId, String? subdomain})
+      : nameController = TextEditingController(text: name),
+        roomIdController = TextEditingController(text: roomId),
+        subdomainController = TextEditingController(text: subdomain);
 
-  final nameController = TextEditingController();
-  final roomIdController = TextEditingController();
-  final subdomainController = TextEditingController();
+  final TextEditingController nameController;
+  final TextEditingController roomIdController;
+  final TextEditingController subdomainController;
 
   @override
   Widget build(BuildContext context) {
+    void startGame({String? name, String? roomId, String? subdomain}) {
+      final gameKit = context.read<GameKit>();
+      final meetKit = context.read<MeetKit>();
+
+      meetKit.init().whenComplete(
+            (() => meetKit.actions
+                    .joinRoom(
+                      name: name ?? "test_user",
+                      room: roomId ?? "62dad79fb1e780e78c39d2cd",
+                      subdomain: subdomain ?? "karthikeyan",
+                    )
+                    .whenComplete(
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MultiProvider(
+                            providers: [
+                              ChangeNotifierProvider.value(
+                                value: gameKit,
+                              ),
+                              ChangeNotifierProvider.value(
+                                value: meetKit,
+                              ),
+                            ],
+                            child: GameScreen(),
+                          ),
+                        ),
+                      ),
+                    )
+                    .catchError((e) {
+                  showToastWidget(
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                            ),
+                            child: const Center(
+                              child: Text("Some error occurred!",
+                                  style: TextStyle(color: Colors.white)),
+                            )),
+                      ),
+                      position: ToastPosition.bottom);
+                })),
+          );
+    }
+
     return Scaffold(
       backgroundColor: Palette.primaryColor,
       body: ConstrainedScreen(
@@ -46,62 +99,15 @@ class JoinScreen extends StatelessWidget {
             ThirdleButton(
               width: 140,
               height: 45,
-              onPressed: () {
-                final gameKit = context.read<GameKit>();
-                final meetKit = context.read<MeetKit>();
-
-                meetKit.init().whenComplete(
-                      (() => meetKit.actions
-                              .joinRoom(
-                                name: nameController.text == ""
-                                    ? "test_user"
-                                    : nameController.text,
-                                room: roomIdController.text == ""
-                                    ? "62dad79fb1e780e78c39d2cd"
-                                    : roomIdController.text,
-                                subdomain: subdomainController.text == ""
-                                    ? "karthikeyan"
-                                    : subdomainController.text,
-                              )
-                              .whenComplete(
-                                () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MultiProvider(
-                                      providers: [
-                                        ChangeNotifierProvider.value(
-                                          value: gameKit,
-                                        ),
-                                        ChangeNotifierProvider.value(
-                                          value: meetKit,
-                                        ),
-                                      ],
-                                      child: GameScreen(),
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .catchError((e) {
-                            showToastWidget(
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8)),
-                                  child: Container(
-                                      height: 40,
-                                      width: 200,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                      ),
-                                      child: const Center(
-                                        child: Text("Some error occurred!",
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      )),
-                                ),
-                                position: ToastPosition.bottom);
-                          })),
-                    );
-              },
+              onPressed: () => startGame(
+                name: nameController.text.isEmpty ? null : nameController.text,
+                roomId: roomIdController.text.isEmpty
+                    ? null
+                    : roomIdController.text,
+                subdomain: subdomainController.text.isEmpty
+                    ? null
+                    : subdomainController.text,
+              ),
               childWidget: Text(
                 "Play!",
                 style: GoogleFonts.nunito(
