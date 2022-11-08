@@ -12,6 +12,22 @@ We did it seamlessly without needing a backend (Firebase, etc), but instead usin
 
 Built with 💙 using [Flutter](https://flutter.dev/) and [100ms SDK](https://www.100ms.live/).  
 
+## Trying it out
+
+Clone the repo and build it with `flutter` commands.
+
+You need 3 things to start playing Thirdle with your own 100ms account (or use the default values if you don't have one)
+1. Name - This will be your display name
+2. Room Id - Your 100ms room Identifier
+3. Subdomain - The subdomain from your 100ms token endpoint
+
+### Room Id
+Go to your 100ms Dashboard > Rooms section, copy an existing room's `Room Id` or create a new room and copy its `Room Id`.
+
+### Subdomain
+Go to your 100ms Dashboard > Developer section. Find your subdomain in token endpoint.
+If your token endpoint is `https://prod-in2.100ms.live/hmsapi/example.app.100ms.live/`, then `example` is your subdomain.
+
 ## Team
 
 <table>
