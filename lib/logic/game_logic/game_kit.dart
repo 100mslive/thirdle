@@ -34,6 +34,13 @@ class GameKit extends ChangeNotifier {
 
     guessWords = List.generate(
         noOfGuesses, (index) => Word.emptyWordFromSize(size: wordSize));
+  }
+
+  void resetRound(int wordNo) {
+    _actualWord = Word.fromString(wordString: _answerWordList[wordNo]);
+
+    guessWords = List.generate(
+        noOfGuesses, (index) => Word.emptyWordFromSize(size: wordSize));
     currentGuessNo = 0;
     currentGuessWord = "";
     currentGuessStatus = GuessStatus.validGuess;

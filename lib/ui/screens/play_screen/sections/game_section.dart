@@ -158,7 +158,7 @@ class PlayAgainButton extends StatelessWidget {
         final gameKit = context.read<GameKit>();
         final meetKit = context.read<MeetKit>();
 
-        gameKit.startNewRound(Helper.getRandomNumber(2316));
+        gameKit.resetRound(Helper.getRandomNumber(2316));
         meetKit.actions.updateMetadata(
           words: gameKit.guessWords,
           guessNo: gameKit.currentGuessNo,
