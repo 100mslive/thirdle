@@ -15,15 +15,16 @@ class CurrentGuessWordBar extends StatefulWidget {
 class _CurrentGuessWordBarState extends State<CurrentGuessWordBar> {
   @override
   Widget build(BuildContext context) {
+    final gameKit = context.watch<GameKit>();
+
     return SizedBox(
       width: 350,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ...context.watch<GameKit>().currentGuessWord.split('').map(
+        ...gameKit.currentGuessWord.split('').map(
               (letterText) => CurrentGuessLetterTile(letterText: letterText),
             ),
         ...List.generate(
-          (widget.noOfLetters -
-              context.watch<GameKit>().currentGuessWord.length),
+          (widget.noOfLetters - gameKit.currentGuessWord.length),
           (index) => const CurrentGuessLetterTile(letterText: ""),
         ),
       ]),

@@ -7,14 +7,14 @@ import 'package:thirdle/ui/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final GameKit thirdleKit = GameKit();
-  await thirdleKit.init();
+  final GameKit gameKit = GameKit();
+  await gameKit.init();
   final MeetKit meetKit = MeetKit();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: thirdleKit,
+          value: gameKit,
         ),
         ChangeNotifierProvider.value(
           value: meetKit,
