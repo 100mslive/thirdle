@@ -31,7 +31,9 @@ class _MeetBoardState extends State<MeetBoard> {
     return SizedBox(
       height: 135,
       width: 380,
-      child: Row(
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
         children: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
