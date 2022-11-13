@@ -1,30 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/meet_components/meet_peer_tile.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class MeetSection extends StatefulWidget {
+class MeetSection extends StatelessWidget {
   MeetSection({super.key});
-
-  @override
-  State<MeetSection> createState() => _MeetSectionState();
-}
-
-class _MeetSectionState extends State<MeetSection> {
-  @override
-  void initState() {
-    final gameKit = context.read<GameKit>();
-    final meetKit = context.read<MeetKit>();
-
-    meetKit.actions.updateMetadata(
-      words: gameKit.guessWords,
-      guessNo: gameKit.guessNo,
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

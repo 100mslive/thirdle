@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
@@ -7,23 +8,12 @@ import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/game_components/current_guess_word_bar.dart';
 import 'package:thirdle/ui/components/game_components/game_keyboard.dart';
 import 'package:thirdle/ui/components/game_components/guess_word_bar.dart';
+import 'package:thirdle/ui/components/reusable_components/the_button.dart';
+import 'package:thirdle/utils/helper.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class GameSection extends StatefulWidget {
+class GameSection extends StatelessWidget {
   GameSection({super.key});
-
-  @override
-  State<GameSection> createState() => _GameSectionState();
-}
-
-class _GameSectionState extends State<GameSection> {
-  bool isWin = false;
-
-  @override
-  void initState() {
-    context.read<GameKit>().startNewRound(9);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +29,10 @@ class _GameSectionState extends State<GameSection> {
         //   );
         // }
 
-        final latestWord = thirdleKit.guessNo > 0
-            ? thirdleKit.guessWords.elementAt(thirdleKit.guessNo - 1)
+        bool isWin = false;
+
+        final latestWord = thirdleKit.currentGuessNo > 0
+            ? thirdleKit.guessWords.elementAt(thirdleKit.currentGuessNo - 1)
             : thirdleKit.guessWords.first;
 
         bool flag = true;
@@ -82,14 +74,24 @@ class _GameSectionState extends State<GameSection> {
             ),
           ),
           isWin
-              ? SizedBox(
-                  width: 250,
-                  child: Image.asset("assets/you_win.png"),
+              ? Column(
+                  children: [
+                    SizedBox(
+                      width: 180,
+                      child: Image.asset("assets/you_win.png"),
+                    ),
+                    const PlayAgainButton(),
+                  ],
                 )
-              : thirdleKit.guessNo >= 5
-                  ? SizedBox(
-                      width: 250,
-                      child: Image.asset("assets/game_over.png"),
+              : thirdleKit.currentGuessNo >= 5
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          width: 180,
+                          child: Image.asset("assets/game_over.png"),
+                        ),
+                        const PlayAgainButton(),
+                      ],
                     )
                   : Column(
                       children: [
@@ -109,10 +111,11 @@ class _GameSectionState extends State<GameSection> {
 
                             thirdleKit.makeGuess(guessWordString);
 
-                            if (gameKit.guessStatus == GuessStatus.validGuess) {
+                            if (gameKit.currentGuessStatus ==
+                                GuessStatus.validGuess) {
                               meetKit.actions.updateMetadata(
                                 words: gameKit.guessWords,
-                                guessNo: gameKit.guessNo,
+                                guessNo: gameKit.currentGuessNo,
                               );
                               // animateToCurrentWord();
                             } else {
@@ -140,6 +143,36 @@ class _GameSectionState extends State<GameSection> {
                     )
         ]);
       }),
+    );
+  }
+}
+
+class PlayAgainButton extends StatelessWidget {
+  const PlayAgainButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TheButton(
+      width: 140,
+      height: 45,
+      onPressed: () {
+        final gameKit = context.read<GameKit>();
+        final meetKit = context.read<MeetKit>();
+
+        gameKit.startNewRound(Helper.getRandomNumber(2316));
+        meetKit.actions.updateMetadata(
+          words: gameKit.guessWords,
+          guessNo: gameKit.currentGuessNo,
+        );
+      },
+      childWidget: Text(
+        "Play Again!",
+        style: GoogleFonts.nunito(
+          color: Palette.textWhiteColor,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

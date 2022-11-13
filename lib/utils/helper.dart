@@ -7,4 +7,8 @@ class Helper {
     return String.fromCharCodes(
         Iterable.generate(length, (_) => ch.codeUnitAt(r.nextInt(ch.length))));
   }
+
+  static int getRandomNumber(int max) {
+    return Random().nextInt(max);
+  }
 }
