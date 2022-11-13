@@ -32,8 +32,9 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
 
   @override
   Widget build(BuildContext context) {
-    final PeerData? peerWordList =
-        context.watch<MeetKit>().peerData[widget.peer.peerId];
+    final meetKit = context.watch<MeetKit>();
+
+    final PeerData? peerWordList = meetKit.peerData[widget.peer.peerId];
 
     if (peerWordList != null) {
       final latestWord = peerWordList.guessNo > 0

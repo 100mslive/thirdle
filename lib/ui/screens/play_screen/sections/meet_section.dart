@@ -10,6 +10,8 @@ class MeetSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final meetKit = context.watch<MeetKit>();
+
     return SizedBox(
       height: 135,
       width: 380,
@@ -41,9 +43,7 @@ class MeetSection extends StatelessWidget {
           ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            children: context
-                .watch<MeetKit>()
-                .allPeers
+            children: meetKit.allPeers
                 .map<Widget>(
                   (peer) => MeetPeerTile(peer: peer),
                 )

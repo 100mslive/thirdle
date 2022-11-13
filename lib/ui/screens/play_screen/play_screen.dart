@@ -32,10 +32,8 @@ class _PlayScreenState extends State<PlayScreen> {
   Widget build(BuildContext context) {
     return ConstrainedScreenWrapper(
       onBackPress: () async {
-        await context
-            .read<MeetKit>()
-            .actions
-            .leaveRoom(context.read<MeetKit>());
+        final meetKit = context.read<MeetKit>();
+        await meetKit.actions.leaveRoom(meetKit);
         return true;
       },
       childWidget: ListView(
