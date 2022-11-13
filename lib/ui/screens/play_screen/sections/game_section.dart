@@ -101,9 +101,8 @@ class GameSection extends StatelessWidget {
                           child: const CurrentGuessWordBar(),
                         ),
                         GameKeyboard(
-                          height: 38,
-                          width: 24,
-                          borderRadius: BorderRadius.circular(8),
+                          keyHeight: 38,
+                          keyWidth: 24,
                           maxWordLimit: thirdleKit.wordSize,
                           onEnterTap: (guessWordString) async {
                             final gameKit = context.read<GameKit>();

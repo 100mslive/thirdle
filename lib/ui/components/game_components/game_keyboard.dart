@@ -5,56 +5,25 @@ import 'package:thirdle/logic/game_logic/game_kit.dart';
 
 import '../../../utils/palette.dart';
 
-// Credits: https://github.com/Zfinix/worddle
+// Ripped and modified from https://github.com/Zfinix/worddle
 
 class GameKeyboard extends StatefulWidget {
-  const GameKeyboard({
+  GameKeyboard({
     Key? key,
     required this.maxWordLimit,
-    required this.height,
-    required this.width,
-    this.spacing = 8.0,
-    this.borderRadius,
-    this.color = const Color(0xFF2E80FF),
-    this.letterStyle = const TextStyle(fontSize: 2, color: Colors.white),
-    this.enableSpaceBar = false,
-    this.enableBackSpace = true,
-    this.enableCapsLock = false,
-    this.highlightColor,
-    this.splashColor,
-    this.onEnterTap,
+    required this.keyHeight,
+    required this.keyWidth,
+    required this.onEnterTap,
   }) : super(key: key);
 
-  // The controller connected to the InputField
   final ValueChanged<String>? onEnterTap;
-
-  // Vertical spacing between key rows
-  final double spacing;
-
-  // Border radius of the keys
-  final BorderRadius? borderRadius;
-
-  // Color of the keys
-  final Color color;
-
-  // max word size
+  final BorderRadius? borderRadius = BorderRadius.circular(8);
+  final Color color = const Color(0xFF2E80FF);
   final int maxWordLimit;
-
-  // TextStyle of the letters in the keys (fontsize, fontface)
-  final TextStyle letterStyle;
-
-  // the additional key that can be added to the keyboard
-  final bool enableSpaceBar;
-  final bool enableBackSpace;
-  final bool enableCapsLock;
-
-  // height and width of each key
-  final double height;
-  final double width;
-
-  // The color displayed when the key is pressed
-  final Color? highlightColor;
-  final Color? splashColor;
+  final TextStyle letterStyle =
+      const TextStyle(fontSize: 2, color: Colors.white);
+  final double keyHeight;
+  final double keyWidth;
 
   @override
   GameKeyboardState createState() => GameKeyboardState();
@@ -72,8 +41,8 @@ class GameKeyboardState extends State<GameKeyboard> {
           runSpacing: 5,
           children: keyboardLayout.sublist(0, 10),
         ),
-        SizedBox(
-          height: widget.spacing,
+        const SizedBox(
+          height: 8,
         ),
         Wrap(
           alignment: WrapAlignment.center,
@@ -81,8 +50,8 @@ class GameKeyboardState extends State<GameKeyboard> {
           runSpacing: 5,
           children: keyboardLayout.sublist(10, 19),
         ),
-        SizedBox(
-          height: widget.spacing,
+        const SizedBox(
+          height: 8,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,11 +63,7 @@ class GameKeyboardState extends State<GameKeyboard> {
               runSpacing: 5,
               children: keyboardLayout.sublist(19),
             ),
-            widget.enableBackSpace
-                ? backSpace()
-                : SizedBox(
-                    width: widget.width + 20,
-                  ),
+            backSpace(),
           ],
         ),
         const Offstage(),
@@ -119,14 +84,12 @@ class GameKeyboardState extends State<GameKeyboard> {
           ),
         ],
       ),
-      height: widget.height,
-      width: widget.width,
+      height: widget.keyHeight,
+      width: widget.keyWidth,
       child: Material(
         type: MaterialType.button,
         color: Palette.keyboardLetterTileColor,
         child: InkWell(
-          highlightColor: widget.highlightColor,
-          splashColor: widget.splashColor,
           onTap: () {
             HapticFeedback.heavyImpact();
 
@@ -164,14 +127,12 @@ class GameKeyboardState extends State<GameKeyboard> {
         ],
       ),
       child: SizedBox(
-        height: widget.height,
-        width: widget.width + 25,
+        height: widget.keyHeight,
+        width: widget.keyWidth + 25,
         child: Material(
           type: MaterialType.button,
           color: Palette.keyboardLetterTileColor,
           child: InkWell(
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
             onTap: () {
               HapticFeedback.heavyImpact();
 
@@ -208,14 +169,12 @@ class GameKeyboardState extends State<GameKeyboard> {
         ],
       ),
       child: SizedBox(
-        height: widget.height,
-        width: widget.width + 25,
+        height: widget.keyHeight,
+        width: widget.keyWidth + 25,
         child: Material(
           type: MaterialType.button,
           color: Palette.keyboardLetterTileColor,
           child: InkWell(
-            highlightColor: widget.highlightColor,
-            splashColor: widget.splashColor,
             onTap: () {
               HapticFeedback.heavyImpact();
 
