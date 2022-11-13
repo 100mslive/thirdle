@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/game_logic/game_kit.dart';
+import 'package:thirdle/logic/game_logic/game_kit.dart';
 
-import '../../utils/palette.dart';
+import '../../../utils/palette.dart';
 
 // Credits: https://github.com/Zfinix/worddle
 

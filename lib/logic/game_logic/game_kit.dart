@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:thirdle/game_logic/models/word_model.dart';
+import 'package:thirdle/logic/game_logic/models/word_model.dart';
 
 enum GuessStatus { validGuess, invalidGuess }
 

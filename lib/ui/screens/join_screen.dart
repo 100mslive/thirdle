@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/game_logic/game_kit.dart';
-import 'package:thirdle/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/constrained_screen.dart';
-import 'package:thirdle/ui/components/thirdle_button.dart';
-import 'package:thirdle/ui/components/thirdle_textfield.dart';
-import 'package:thirdle/ui/screens/game_screen.dart';
+import 'package:thirdle/logic/game_logic/game_kit.dart';
+import 'package:thirdle/logic/meet_logic/meet_kit.dart';
+import 'package:thirdle/ui/components/reusable_components/constrained_screen.dart';
+import 'package:thirdle/ui/components/reusable_components/thirdle_button.dart';
+import 'package:thirdle/ui/components/reusable_components/thirdle_textfield.dart';
+import 'package:thirdle/ui/screens/game_screen/game_screen.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class JoinScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thirdle/game_logic/models/letter_model.dart';
-import 'package:thirdle/game_logic/models/word_model.dart';
+import 'package:thirdle/logic/game_logic/models/letter_model.dart';
+import 'package:thirdle/logic/game_logic/models/word_model.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class WordBar extends StatelessWidget {

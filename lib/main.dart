@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/game_logic/game_kit.dart';
-import 'package:thirdle/meet_logic/meet_kit.dart';
+import 'package:thirdle/logic/game_logic/game_kit.dart';
+import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/screens/splash_screen.dart';
 
 void main() async {

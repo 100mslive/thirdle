@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/game_logic/game_kit.dart';
-import 'package:thirdle/game_logic/models/letter_model.dart';
-import 'package:thirdle/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/guess_word_box.dart';
-import 'package:thirdle/ui/components/thirdle_keyboard.dart';
-import 'package:thirdle/ui/components/word_bar.dart';
-
-import '../../utils/palette.dart';
+import 'package:thirdle/logic/game_logic/game_kit.dart';
+import 'package:thirdle/logic/game_logic/models/letter_model.dart';
+import 'package:thirdle/logic/meet_logic/meet_kit.dart';
+import 'package:thirdle/ui/components/game_components/guess_word_box.dart';
+import 'package:thirdle/ui/components/game_components/thirdle_keyboard.dart';
+import 'package:thirdle/ui/components/game_components/word_bar.dart';
+import 'package:thirdle/utils/palette.dart';
 
 class ThirdleBoard extends StatefulWidget {
   ThirdleBoard({super.key});

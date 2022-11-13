@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:thirdle/game_logic/models/word_model.dart';
-import 'package:thirdle/meet_logic/meet_kit.dart';
-import 'package:thirdle/meet_logic/models/peer_data.dart';
+import 'package:thirdle/logic/game_logic/models/word_model.dart';
+import 'package:thirdle/logic/meet_logic/meet_kit.dart';
+import 'package:thirdle/logic/meet_logic/models/peer_data.dart';
 import 'package:thirdle/utils/helper.dart';
 
 class MeetActions {

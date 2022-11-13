@@ -1,4 +1,4 @@
-import 'package:thirdle/game_logic/models/letter_model.dart';
+import 'package:thirdle/logic/game_logic/models/letter_model.dart';
 
 class Word {
   Word._({required this.letters, required this.isActualWord});
