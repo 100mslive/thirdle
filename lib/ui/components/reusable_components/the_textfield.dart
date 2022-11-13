@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class ThirdleTextField extends StatefulWidget {
-  const ThirdleTextField(
+class TheTextField extends StatefulWidget {
+  const TheTextField(
       {super.key, required this.textEditingController, required this.hintText});
 
   final TextEditingController textEditingController;
   final String hintText;
 
   @override
-  State<ThirdleTextField> createState() => _ThirdleTextFieldState();
+  State<TheTextField> createState() => _TheTextFieldState();
 }
 
-class _ThirdleTextFieldState extends State<ThirdleTextField> {
+class _TheTextFieldState extends State<TheTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(

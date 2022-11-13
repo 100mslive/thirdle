@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class ThirdleButton extends StatelessWidget {
-  const ThirdleButton({
+class TheButton extends StatelessWidget {
+  const TheButton({
     super.key,
     required this.width,
     required this.height,

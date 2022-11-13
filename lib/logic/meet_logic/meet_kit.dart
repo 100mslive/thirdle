@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:thirdle/logic/meet_logic/meet_actions.dart';
-import 'package:thirdle/logic/meet_logic/models/peer_data.dart';
+import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 
 class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];

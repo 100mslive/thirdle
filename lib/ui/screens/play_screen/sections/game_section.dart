@@ -4,19 +4,19 @@ import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/game_logic/models/letter_model.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/game_components/guess_word_box.dart';
-import 'package:thirdle/ui/components/game_components/thirdle_keyboard.dart';
-import 'package:thirdle/ui/components/game_components/word_bar.dart';
+import 'package:thirdle/ui/components/game_components/current_guess_word_bar.dart';
+import 'package:thirdle/ui/components/game_components/game_keyboard.dart';
+import 'package:thirdle/ui/components/game_components/guess_word_bar.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class ThirdleBoard extends StatefulWidget {
-  ThirdleBoard({super.key});
+class GameSection extends StatefulWidget {
+  GameSection({super.key});
 
   @override
-  State<ThirdleBoard> createState() => _ThirdleBoardState();
+  State<GameSection> createState() => _GameSectionState();
 }
 
-class _ThirdleBoardState extends State<ThirdleBoard> {
+class _GameSectionState extends State<GameSection> {
   bool isWin = false;
 
   @override
@@ -74,7 +74,7 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
               // controller: scrollController,
               children: thirdleKit.guessWords
                   .map(
-                    (guessWord) => WordBar(
+                    (guessWord) => GuessWordBar(
                       word: guessWord,
                     ),
                   )
@@ -96,9 +96,9 @@ class _ThirdleBoardState extends State<ThirdleBoard> {
                         Container(
                           width: 380,
                           padding: const EdgeInsets.only(bottom: 10),
-                          child: const GuessWordBox(),
+                          child: const CurrentGuessWordBar(),
                         ),
-                        ThirdleKeyboard(
+                        GameKeyboard(
                           height: 38,
                           width: 24,
                           borderRadius: BorderRadius.circular(8),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class ConstrainedScreen extends StatelessWidget {
-  const ConstrainedScreen(
+class ConstrainedScreenWrapper extends StatelessWidget {
+  const ConstrainedScreenWrapper(
       {super.key, required this.childWidget, required this.onBackPress});
 
   final Widget childWidget;

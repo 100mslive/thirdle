@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/meet_components/peer_tile.dart';
+import 'package:thirdle/ui/components/meet_components/meet_peer_tile.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class MeetBoard extends StatefulWidget {
-  MeetBoard({super.key});
+class MeetSection extends StatefulWidget {
+  MeetSection({super.key});
 
   @override
-  State<MeetBoard> createState() => _MeetBoardState();
+  State<MeetSection> createState() => _MeetSectionState();
 }
 
-class _MeetBoardState extends State<MeetBoard> {
+class _MeetSectionState extends State<MeetSection> {
   @override
   void initState() {
     final gameKit = context.read<GameKit>();
@@ -63,7 +63,7 @@ class _MeetBoardState extends State<MeetBoard> {
                 .watch<MeetKit>()
                 .allPeers
                 .map<Widget>(
-                  (peer) => PeerTile(peer: peer),
+                  (peer) => MeetPeerTile(peer: peer),
                 )
                 .toList(),
           ),

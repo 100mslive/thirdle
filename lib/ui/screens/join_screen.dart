@@ -4,10 +4,10 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/reusable_components/constrained_screen.dart';
-import 'package:thirdle/ui/components/reusable_components/thirdle_button.dart';
-import 'package:thirdle/ui/components/reusable_components/thirdle_textfield.dart';
-import 'package:thirdle/ui/screens/game_screen/game_screen.dart';
+import 'package:thirdle/ui/components/reusable_components/constrained_screen_wrapper.dart';
+import 'package:thirdle/ui/components/reusable_components/the_button.dart';
+import 'package:thirdle/ui/components/reusable_components/the_textfield.dart';
+import 'package:thirdle/ui/screens/play_screen/play_screen.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class JoinScreen extends StatelessWidget {
@@ -46,7 +46,7 @@ class JoinScreen extends StatelessWidget {
                                 value: meetKit,
                               ),
                             ],
-                            child: GameScreen(),
+                            child: PlayScreen(),
                           ),
                         ),
                       ),
@@ -74,29 +74,29 @@ class JoinScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Palette.primaryColor,
-      body: ConstrainedScreen(
+      body: ConstrainedScreenWrapper(
         onBackPress: () async {
           return true;
         },
         childWidget: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ThirdleTextField(
+            TheTextField(
               key: const Key('name_field'),
               textEditingController: nameController,
               hintText: "Enter your name",
             ),
-            ThirdleTextField(
+            TheTextField(
               key: const Key('roomid_field'),
               textEditingController: roomIdController,
               hintText: "<optional> Enter the room id",
             ),
-            ThirdleTextField(
+            TheTextField(
               key: const Key('subdomain_field'),
               textEditingController: subdomainController,
               hintText: "<optional> Enter the subdomain",
             ),
-            ThirdleButton(
+            TheButton(
               width: 140,
               height: 45,
               onPressed: () => startGame(

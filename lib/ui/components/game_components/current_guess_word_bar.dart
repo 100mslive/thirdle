@@ -3,36 +3,36 @@ import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class GuessWordBox extends StatefulWidget {
-  const GuessWordBox({super.key, this.noOfLetters = 5});
+class CurrentGuessWordBar extends StatefulWidget {
+  const CurrentGuessWordBar({super.key, this.noOfLetters = 5});
 
   final int noOfLetters;
 
   @override
-  State<GuessWordBox> createState() => _GuessWordBoxState();
+  State<CurrentGuessWordBar> createState() => _CurrentGuessWordBarState();
 }
 
-class _GuessWordBoxState extends State<GuessWordBox> {
+class _CurrentGuessWordBarState extends State<CurrentGuessWordBar> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 350,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ...context.watch<GameKit>().currentGuessWord.split('').map(
-              (letterText) => GuessLetterBox(letterText: letterText),
+              (letterText) => CurrentGuessLetterTile(letterText: letterText),
             ),
         ...List.generate(
           (widget.noOfLetters -
               context.watch<GameKit>().currentGuessWord.length),
-          (index) => const GuessLetterBox(letterText: ""),
+          (index) => const CurrentGuessLetterTile(letterText: ""),
         ),
       ]),
     );
   }
 }
 
-class GuessLetterBox extends StatelessWidget {
-  const GuessLetterBox({super.key, required this.letterText});
+class CurrentGuessLetterTile extends StatelessWidget {
+  const CurrentGuessLetterTile({super.key, required this.letterText});
 
   final String letterText;
 

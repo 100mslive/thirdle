@@ -7,8 +7,8 @@ import '../../../utils/palette.dart';
 
 // Credits: https://github.com/Zfinix/worddle
 
-class ThirdleKeyboard extends StatefulWidget {
-  const ThirdleKeyboard({
+class GameKeyboard extends StatefulWidget {
+  const GameKeyboard({
     Key? key,
     required this.maxWordLimit,
     required this.height,
@@ -57,10 +57,10 @@ class ThirdleKeyboard extends StatefulWidget {
   final Color? splashColor;
 
   @override
-  ThirdleKeyboardState createState() => ThirdleKeyboardState();
+  GameKeyboardState createState() => GameKeyboardState();
 }
 
-class ThirdleKeyboardState extends State<ThirdleKeyboard> {
+class GameKeyboardState extends State<GameKeyboard> {
   @override
   Widget build(BuildContext context) {
     var keyboardLayout = layout();

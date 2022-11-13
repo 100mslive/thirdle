@@ -8,18 +8,18 @@ import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/models/letter_model.dart';
 import 'package:thirdle/logic/game_logic/models/word_model.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
-import 'package:thirdle/logic/meet_logic/models/peer_data.dart';
+import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 import 'package:thirdle/utils/palette.dart';
 
-class PeerTile extends StatefulWidget {
-  const PeerTile({required this.peer, super.key});
+class MeetPeerTile extends StatefulWidget {
+  const MeetPeerTile({required this.peer, super.key});
   final HMSPeer peer;
 
   @override
-  State<PeerTile> createState() => _PeerTileState();
+  State<MeetPeerTile> createState() => _MeetPeerTileState();
 }
 
-class _PeerTileState extends State<PeerTile> {
+class _MeetPeerTileState extends State<MeetPeerTile> {
   bool isExpanded = false;
   final controller = ConfettiController();
   bool isPlaying = false;
@@ -122,10 +122,11 @@ class _PeerTileState extends State<PeerTile> {
                             if (peerWordList != null)
                               if (isExpanded)
                                 ...peerWordList.wordList
-                                    .map((word) => MiniWordBar(word: word))
+                                    .map((word) =>
+                                        MiniColoredWordBar(word: word))
                                     .toList()
                               else
-                                MiniWordBar(
+                                MiniColoredWordBar(
                                   word: peerWordList.guessNo > 0
                                       ? peerWordList.wordList
                                           .elementAt(peerWordList.guessNo - 1)
@@ -162,8 +163,8 @@ class _PeerTileState extends State<PeerTile> {
   }
 }
 
-class MiniWordBar extends StatelessWidget {
-  const MiniWordBar({required this.word, super.key});
+class MiniColoredWordBar extends StatelessWidget {
+  const MiniColoredWordBar({required this.word, super.key});
   final Word word;
 
   @override
@@ -173,7 +174,7 @@ class MiniWordBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: word.letters
-            .map((letter) => MiniLetterTile(
+            .map((letter) => MiniColoredLetterTile(
                   letter: letter,
                 ))
             .toList(),
@@ -182,8 +183,8 @@ class MiniWordBar extends StatelessWidget {
   }
 }
 
-class MiniLetterTile extends StatelessWidget {
-  const MiniLetterTile({required this.letter, super.key});
+class MiniColoredLetterTile extends StatelessWidget {
+  const MiniColoredLetterTile({required this.letter, super.key});
 
   final Letter letter;
 

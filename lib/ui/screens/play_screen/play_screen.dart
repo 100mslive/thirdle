@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
-import 'package:thirdle/ui/components/reusable_components/constrained_screen.dart';
-import 'package:thirdle/ui/screens/game_screen/boards/meet_board.dart';
-import 'package:thirdle/ui/screens/game_screen/boards/thirdle_board.dart';
+import 'package:thirdle/ui/components/reusable_components/constrained_screen_wrapper.dart';
+import 'package:thirdle/ui/screens/play_screen/sections/game_section.dart';
+import 'package:thirdle/ui/screens/play_screen/sections/meet_section.dart';
 
-class GameScreen extends StatelessWidget {
-  GameScreen({super.key});
+class PlayScreen extends StatelessWidget {
+  PlayScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedScreen(
+    return ConstrainedScreenWrapper(
       onBackPress: () async {
         await context
             .read<MeetKit>()
@@ -21,8 +21,8 @@ class GameScreen extends StatelessWidget {
       childWidget: ListView(
         shrinkWrap: true,
         children: [
-          MeetBoard(),
-          ThirdleBoard(),
+          MeetSection(),
+          GameSection(),
         ],
       ),
     );
