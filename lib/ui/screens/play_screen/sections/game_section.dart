@@ -17,132 +17,120 @@ class GameSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GameKit>(
-      builder: ((context, thirdleKit, child) {
-        // final ScrollController scrollController = ScrollController();
+    final gameKit = context.watch<GameKit>();
 
-        // void animateToCurrentWord() {
-        //   scrollController.animateTo(
-        //     thirdleKit.guessNo * 35.0,
-        //     duration: const Duration(milliseconds: 600),
-        //     curve: Curves.bounceInOut,
-        //   );
-        // }
+    bool isWin = false;
 
-        bool isWin = false;
+    final latestWord = gameKit.currentGuessNo > 0
+        ? gameKit.guessWords.elementAt(gameKit.currentGuessNo - 1)
+        : gameKit.guessWords.first;
 
-        final latestWord = thirdleKit.currentGuessNo > 0
-            ? thirdleKit.guessWords.elementAt(thirdleKit.currentGuessNo - 1)
-            : thirdleKit.guessWords.first;
+    bool flag = true;
+    for (var letter in latestWord.letters) {
+      if (letter.status != LetterStatus.correctLetterWithPosition) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
+      isWin = true;
+    }
 
-        bool flag = true;
-        for (var letter in latestWord.letters) {
-          if (letter.status != LetterStatus.correctLetterWithPosition) {
-            flag = false;
-            break;
-          }
-        }
-        if (flag) {
-          isWin = true;
-        }
-
-        return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 325,
-            width: 350,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 25.0,
-              vertical: 15,
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+        height: 325,
+        width: 350,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 25.0,
+          vertical: 15,
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: BoxDecoration(
+            color: Palette.cardColor,
+            border: Border.all(
+              color: const Color.fromARGB(255, 122, 142, 156),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            decoration: BoxDecoration(
-                color: Palette.cardColor,
-                border: Border.all(
-                  color: const Color.fromARGB(255, 122, 142, 156),
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          // ListView(
+          // controller: scrollController,
+          children: gameKit.guessWords
+              .map(
+                (guessWord) => GuessWordBar(
+                  word: guessWord,
                 ),
-                borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              // ListView(
-              // controller: scrollController,
-              children: thirdleKit.guessWords
-                  .map(
-                    (guessWord) => GuessWordBar(
-                      word: guessWord,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-          isWin
+              )
+              .toList(),
+        ),
+      ),
+      isWin
+          ? Column(
+              children: [
+                SizedBox(
+                  width: 180,
+                  child: Image.asset("assets/you_win.png"),
+                ),
+                const PlayAgainButton(),
+              ],
+            )
+          : gameKit.currentGuessNo >= 5
               ? Column(
                   children: [
                     SizedBox(
                       width: 180,
-                      child: Image.asset("assets/you_win.png"),
+                      child: Image.asset("assets/game_over.png"),
                     ),
                     const PlayAgainButton(),
                   ],
                 )
-              : thirdleKit.currentGuessNo >= 5
-                  ? Column(
-                      children: [
-                        SizedBox(
-                          width: 180,
-                          child: Image.asset("assets/game_over.png"),
-                        ),
-                        const PlayAgainButton(),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        Container(
-                          width: 380,
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: const CurrentGuessWordBar(),
-                        ),
-                        GameKeyboard(
-                          keyHeight: 38,
-                          keyWidth: 24,
-                          maxWordLimit: thirdleKit.wordSize,
-                          onEnterTap: (guessWordString) async {
-                            final gameKit = context.read<GameKit>();
-                            final meetKit = context.read<MeetKit>();
+              : Column(
+                  children: [
+                    Container(
+                      width: 380,
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: const CurrentGuessWordBar(),
+                    ),
+                    GameKeyboard(
+                      keyHeight: 38,
+                      keyWidth: 24,
+                      maxWordLimit: gameKit.wordSize,
+                      onEnterTap: (guessWordString) async {
+                        final gameKit = context.read<GameKit>();
+                        final meetKit = context.read<MeetKit>();
 
-                            thirdleKit.makeGuess(guessWordString);
+                        gameKit.makeGuess(guessWordString);
 
-                            if (gameKit.currentGuessStatus ==
-                                GuessStatus.validGuess) {
-                              meetKit.actions.updateMetadata(
-                                words: gameKit.guessWords,
-                                guessNo: gameKit.currentGuessNo,
-                              );
-                              // animateToCurrentWord();
-                            } else {
-                              showToastWidget(
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(8)),
-                                    child: Container(
-                                        height: 40,
-                                        width: 200,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.red,
-                                        ),
-                                        child: const Center(
-                                          child: Text("Invalid Word",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                        )),
-                                  ),
-                                  position: ToastPosition.bottom);
-                            }
-                          },
-                        ),
-                      ],
-                    )
-        ]);
-      }),
-    );
+                        if (gameKit.currentGuessStatus ==
+                            GuessStatus.validGuess) {
+                          meetKit.actions.updateMetadata(
+                            words: gameKit.guessWords,
+                            guessNo: gameKit.currentGuessNo,
+                          );
+                          // animateToCurrentWord();
+                        } else {
+                          showToastWidget(
+                              ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                child: Container(
+                                    height: 40,
+                                    width: 200,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                    ),
+                                    child: const Center(
+                                      child: Text("Invalid Word",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    )),
+                              ),
+                              position: ToastPosition.bottom);
+                        }
+                      },
+                    ),
+                  ],
+                )
+    ]);
   }
 }
 
