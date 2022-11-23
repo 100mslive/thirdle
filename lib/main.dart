@@ -20,20 +20,12 @@ void main() async {
           value: meetKit,
         ),
       ],
-      child: const MyApp(),
+      child: OKToast(
+        child: MaterialApp(
+          theme: ThemeData(primaryColor: const Color(0xFF2E80FF)),
+          home: const SplashScreen(),
+        ),
+      ),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return OKToast(
-        child: MaterialApp(
-      theme: ThemeData(primaryColor: const Color(0xFF2E80FF)),
-      home: const SplashScreen(),
-    ));
-  }
 }
