@@ -16,7 +16,7 @@ class GameKeyboard extends StatefulWidget {
     required this.onEnterTap,
   }) : super(key: key);
 
-  final ValueChanged<String>? onEnterTap;
+  final Function onEnterTap;
   final BorderRadius? borderRadius = BorderRadius.circular(8);
   final Color color = const Color(0xFF2E80FF);
   final int maxWordLimit;
@@ -95,10 +95,10 @@ class GameKeyboardState extends State<GameKeyboard> {
 
             final gameKit = context.read<GameKit>();
 
-            if (gameKit.currentGuessWord.length == widget.maxWordLimit) {
+            if (gameKit.currentGuessWordString.length == widget.maxWordLimit) {
               return;
             }
-            gameKit.updateGuessWord(gameKit.currentGuessWord + letter);
+            gameKit.updateGuessWord(gameKit.currentGuessWordString + letter);
           },
           child: Center(
             child: Text(
@@ -138,9 +138,9 @@ class GameKeyboardState extends State<GameKeyboard> {
 
               final gameKit = context.read<GameKit>();
 
-              if (gameKit.currentGuessWord.isNotEmpty) {
-                gameKit.updateGuessWord(gameKit.currentGuessWord
-                    .substring(0, gameKit.currentGuessWord.length - 1));
+              if (gameKit.currentGuessWordString.isNotEmpty) {
+                gameKit.updateGuessWord(gameKit.currentGuessWordString
+                    .substring(0, gameKit.currentGuessWordString.length - 1));
               }
             },
             child: const Center(
@@ -177,11 +177,7 @@ class GameKeyboardState extends State<GameKeyboard> {
           child: InkWell(
             onTap: () {
               HapticFeedback.heavyImpact();
-
-              if (widget.onEnterTap != null) {
-                final gameKit = context.read<GameKit>();
-                widget.onEnterTap!(gameKit.currentGuessWord);
-              }
+              widget.onEnterTap();
             },
             child: Center(
               child: Text(

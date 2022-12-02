@@ -94,11 +94,11 @@ class GameSection extends StatelessWidget {
                       keyHeight: 38,
                       keyWidth: 24,
                       maxWordLimit: gameKit.wordSize,
-                      onEnterTap: (guessWordString) async {
+                      onEnterTap: () async {
                         final gameKit = context.read<GameKit>();
                         final meetKit = context.read<MeetKit>();
 
-                        gameKit.makeGuess(guessWordString);
+                        gameKit.makeGuess();
 
                         if (gameKit.currentGuessStatus ==
                             GuessStatus.validGuess) {

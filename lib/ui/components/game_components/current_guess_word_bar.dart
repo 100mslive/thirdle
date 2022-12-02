@@ -20,11 +20,11 @@ class _CurrentGuessWordBarState extends State<CurrentGuessWordBar> {
     return SizedBox(
       width: 350,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ...gameKit.currentGuessWord.split('').map(
+        ...gameKit.currentGuessWordString.split('').map(
               (letterText) => CurrentGuessLetterTile(letterText: letterText),
             ),
         ...List.generate(
-          (widget.noOfLetters - gameKit.currentGuessWord.length),
+          (widget.noOfLetters - gameKit.currentGuessWordString.length),
           (index) => const CurrentGuessLetterTile(letterText: ""),
         ),
       ]),

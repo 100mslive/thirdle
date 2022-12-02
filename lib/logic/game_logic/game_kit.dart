@@ -17,7 +17,7 @@ class GameKit extends ChangeNotifier {
   late Word _actualWord;
 
   late int currentGuessNo = 0;
-  late String currentGuessWord = "";
+  late String currentGuessWordString = "";
   GuessStatus currentGuessStatus = GuessStatus.validGuess;
 
   Future<void> init() async {
@@ -42,15 +42,15 @@ class GameKit extends ChangeNotifier {
     guessWords = List.generate(
         noOfGuesses, (index) => Word.emptyWordFromSize(size: wordSize));
     currentGuessNo = 0;
-    currentGuessWord = "";
+    currentGuessWordString = "";
     currentGuessStatus = GuessStatus.validGuess;
     notifyListeners();
   }
 
-  void makeGuess(String newGuessWordString) {
-    if (_answerWordList.contains(newGuessWordString) ||
-        _additionalValidWordList.contains(newGuessWordString)) {
-      final newGuessWord = Word.fromString(wordString: newGuessWordString);
+  void makeGuess() {
+    if (_answerWordList.contains(currentGuessWordString) ||
+        _additionalValidWordList.contains(currentGuessWordString)) {
+      final newGuessWord = Word.fromString(wordString: currentGuessWordString);
       newGuessWord.compareWithWord(_actualWord);
       guessWords[currentGuessNo] = newGuessWord;
       currentGuessNo++;
@@ -58,12 +58,12 @@ class GameKit extends ChangeNotifier {
     } else {
       currentGuessStatus = GuessStatus.invalidGuess;
     }
-    currentGuessWord = "";
+    currentGuessWordString = "";
     notifyListeners();
   }
 
-  void updateGuessWord(String updatedGuessWord) {
-    currentGuessWord = updatedGuessWord;
+  void updateGuessWord(String updatedGuessWordString) {
+    currentGuessWordString = updatedGuessWordString;
     notifyListeners();
   }
 }
