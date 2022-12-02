@@ -36,68 +36,46 @@ class GameSection extends StatelessWidget {
       isWin = true;
     }
 
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Container(
-        height: 325,
-        width: 350,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 25.0,
-          vertical: 15,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
-            color: Palette.cardColor,
-            border: Border.all(
-              color: const Color.fromARGB(255, 122, 142, 156),
-            ),
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          // ListView(
-          // controller: scrollController,
-          children: gameKit.guessWords
-              .map(
-                (guessWord) => GuessWordBar(
-                  word: guessWord,
-                ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GuessWordsBox(),
+        isWin
+            ? Column(
+                children: [
+                  SizedBox(
+                    width: 180,
+                    child: Image.asset("assets/you_win.png"),
+                  ),
+                  const PlayAgainButton(),
+                ],
               )
-              .toList(),
-        ),
-      ),
-      isWin
-          ? Column(
-              children: [
-                SizedBox(
-                  width: 180,
-                  child: Image.asset("assets/you_win.png"),
-                ),
-                const PlayAgainButton(),
-              ],
-            )
-          : gameKit.currentGuessNo >= 5
-              ? Column(
-                  children: [
-                    SizedBox(
-                      width: 180,
-                      child: Image.asset("assets/game_over.png"),
-                    ),
-                    const PlayAgainButton(),
-                  ],
-                )
-              : Column(
-                  children: [
-                    Container(
-                      width: 380,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: const CurrentGuessWordBar(),
-                    ),
-                    GameKeyboard(
-                      keyHeight: 38,
-                      keyWidth: 24,
-                      maxWordLimit: gameKit.wordSize,
-                    ),
-                  ],
-                )
-    ]);
+            : gameKit.currentGuessNo >= 5
+                ? Column(
+                    children: [
+                      SizedBox(
+                        width: 180,
+                        child: Image.asset("assets/game_over.png"),
+                      ),
+                      const PlayAgainButton(),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        width: 380,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: const CurrentGuessWordBar(),
+                      ),
+                      GameKeyboard(
+                        keyHeight: 38,
+                        keyWidth: 24,
+                        maxWordLimit: gameKit.wordSize,
+                      ),
+                    ],
+                  ),
+      ],
+    );
   }
 }
 
