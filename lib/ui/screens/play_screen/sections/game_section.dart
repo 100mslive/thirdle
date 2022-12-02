@@ -94,39 +94,6 @@ class GameSection extends StatelessWidget {
                       keyHeight: 38,
                       keyWidth: 24,
                       maxWordLimit: gameKit.wordSize,
-                      onEnterTap: () async {
-                        final gameKit = context.read<GameKit>();
-                        final meetKit = context.read<MeetKit>();
-
-                        gameKit.makeGuess();
-
-                        if (gameKit.currentGuessStatus ==
-                            GuessStatus.validGuess) {
-                          meetKit.actions.updateMetadata(
-                            words: gameKit.guessWords,
-                            guessNo: gameKit.currentGuessNo,
-                          );
-                          // animateToCurrentWord();
-                        } else {
-                          showToastWidget(
-                              ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
-                                child: Container(
-                                    height: 40,
-                                    width: 200,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.red,
-                                    ),
-                                    child: const Center(
-                                      child: Text("Invalid Word",
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    )),
-                              ),
-                              position: ToastPosition.bottom);
-                        }
-                      },
                     ),
                   ],
                 )

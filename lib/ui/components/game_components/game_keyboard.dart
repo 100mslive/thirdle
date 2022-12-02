@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
+import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 
 import '../../../utils/palette.dart';
 
@@ -13,10 +15,8 @@ class GameKeyboard extends StatefulWidget {
     required this.maxWordLimit,
     required this.keyHeight,
     required this.keyWidth,
-    required this.onEnterTap,
   }) : super(key: key);
 
-  final Function onEnterTap;
   final BorderRadius? borderRadius = BorderRadius.circular(8);
   final Color color = const Color(0xFF2E80FF);
   final int maxWordLimit;
@@ -177,7 +177,35 @@ class GameKeyboardState extends State<GameKeyboard> {
           child: InkWell(
             onTap: () {
               HapticFeedback.heavyImpact();
-              widget.onEnterTap();
+
+              final gameKit = context.read<GameKit>();
+              final meetKit = context.read<MeetKit>();
+
+              gameKit.makeGuess();
+
+              if (gameKit.currentGuessStatus == GuessStatus.validGuess) {
+                meetKit.actions.updateMetadata(
+                  words: gameKit.guessWords,
+                  guessNo: gameKit.currentGuessNo,
+                );
+                // animateToCurrentWord();
+              } else {
+                showToastWidget(
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      child: Container(
+                          height: 40,
+                          width: 200,
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: const Center(
+                            child: Text("Invalid Word",
+                                style: TextStyle(color: Colors.white)),
+                          )),
+                    ),
+                    position: ToastPosition.bottom);
+              }
             },
             child: Center(
               child: Text(
