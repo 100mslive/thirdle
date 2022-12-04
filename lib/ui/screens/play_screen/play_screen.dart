@@ -20,7 +20,7 @@ class _PlayScreenState extends State<PlayScreen> {
     final gameKit = context.read<GameKit>();
     final meetKit = context.read<MeetKit>();
 
-    gameKit.startNewRound(Helper.getRandomNumber(2316));
+    gameKit.startNewRound();
     meetKit.actions.updateMetadata(
       words: gameKit.guessWords,
       guessNo: gameKit.currentGuessNo,

@@ -1,7 +1,7 @@
 import 'package:thirdle/logic/game_logic/models/letter_model.dart';
 
 class Word {
-  Word._({required this.letters, required this.isActualWord});
+  Word._({required this.letters});
 
   factory Word.fromString(
       {required String wordString, bool isActualWord = false}) {
@@ -10,42 +10,24 @@ class Word {
           .split('')
           .map((letterString) => Letter(value: letterString))
           .toList(),
-      isActualWord: isActualWord,
     );
   }
 
   factory Word.emptyWordFromSize({required int size}) {
     return Word._(
-        letters: List.filled(size, ' ')
-            .map((letterValue) => Letter(value: letterValue))
-            .toList(),
-        isActualWord: false);
+      letters: List.filled(size, ' ')
+          .map((letterValue) => Letter(value: letterValue))
+          .toList(),
+    );
   }
 
   List<Letter> letters;
-  final bool isActualWord;
 
-  // use this method on guessed word with the actual word as param
-  // changes the letter status
+  /// Use this method on the guessed word with the actual word as param.
+  /// It changes the letter status for all the letters of this object.
   void compareWithWord(Word actualWord) {
     List<bool> flags =
         List.generate(letters.length, (index) => false, growable: false);
-
-    // we give preference to "correct letter and correct pos"
-    // over just "corect pos"
-    // Ex: Actual word = "apple" and Guess word = "apllp"
-    // we want the status to be the following for the letters:
-    // 1. correct letter with pos
-    // 2. correct letter with pos
-    // 3. none
-    // 4. correct letter with pos
-    // 5. correct letter
-    // rather than:
-    // 1. correct letter with pos
-    // 2. correct letter with pos
-    // 3. correct letter
-    // 4. none
-    // 5. correct letter
 
     // check for correct letter and correct pos
     for (int i = 0; i < letters.length; i++) {
@@ -69,6 +51,17 @@ class Word {
     }
   }
 
+  /// Check if the status of all the letters in this object are
+  /// `LetterStatus.correctLetterWithPosition`
+  bool isCorrect() {
+    for (var letter in letters) {
+      if (letter.status != LetterStatus.correctLetterWithPosition) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "letters": letters.map((letter) => letter.toMap()).toList(),
@@ -82,7 +75,6 @@ class Word {
             (letterMap) => Letter.fromMap(letterMap),
           )
           .toList(),
-      isActualWord: false,
     );
   }
 }

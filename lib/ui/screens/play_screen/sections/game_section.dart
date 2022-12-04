@@ -19,28 +19,11 @@ class GameSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameKit = context.watch<GameKit>();
 
-    bool isWin = false;
-
-    final latestWord = gameKit.currentGuessNo > 0
-        ? gameKit.guessWords.elementAt(gameKit.currentGuessNo - 1)
-        : gameKit.guessWords.first;
-
-    bool flag = true;
-    for (var letter in latestWord.letters) {
-      if (letter.status != LetterStatus.correctLetterWithPosition) {
-        flag = false;
-        break;
-      }
-    }
-    if (flag) {
-      isWin = true;
-    }
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GuessWordsBox(),
-        isWin
+        gameKit.isWin
             ? Column(
                 children: [
                   SizedBox(
@@ -91,7 +74,7 @@ class PlayAgainButton extends StatelessWidget {
         final gameKit = context.read<GameKit>();
         final meetKit = context.read<MeetKit>();
 
-        gameKit.resetRound(Helper.getRandomNumber(2316));
+        gameKit.startNewRound();
         meetKit.actions.updateMetadata(
           words: gameKit.guessWords,
           guessNo: gameKit.currentGuessNo,

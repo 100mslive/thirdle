@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:thirdle/logic/game_logic/models/word_model.dart';
+import 'package:thirdle/utils/helper.dart';
 
 enum GuessStatus { validGuess, invalidGuess }
 
@@ -19,6 +20,7 @@ class GameKit extends ChangeNotifier {
   late int currentGuessNo = 0;
   late String currentGuessWordString = "";
   GuessStatus currentGuessStatus = GuessStatus.validGuess;
+  bool isWin = false;
 
   Future<void> init() async {
     String loadedString =
@@ -29,21 +31,16 @@ class GameKit extends ChangeNotifier {
     _additionalValidWordList = loadedString.split('\n');
   }
 
-  void startNewRound(int wordNo) {
-    _actualWord = Word.fromString(wordString: _answerWordList[wordNo]);
-
-    guessWords = List.generate(
-        noOfGuesses, (index) => Word.emptyWordFromSize(size: wordSize));
-  }
-
-  void resetRound(int wordNo) {
-    _actualWord = Word.fromString(wordString: _answerWordList[wordNo]);
+  void startNewRound() {
+    _actualWord = Word.fromString(
+        wordString: _answerWordList[Helper.getRandomNumber(2316)]);
 
     guessWords = List.generate(
         noOfGuesses, (index) => Word.emptyWordFromSize(size: wordSize));
     currentGuessNo = 0;
     currentGuessWordString = "";
     currentGuessStatus = GuessStatus.validGuess;
+    isWin = false;
     notifyListeners();
   }
 
@@ -55,6 +52,7 @@ class GameKit extends ChangeNotifier {
       guessWords[currentGuessNo] = newGuessWord;
       currentGuessNo++;
       currentGuessStatus = GuessStatus.validGuess;
+      isWin = newGuessWord.isCorrect();
     } else {
       currentGuessStatus = GuessStatus.invalidGuess;
     }
