@@ -91,8 +91,6 @@ class GameKeyboardState extends State<GameKeyboard> {
         color: Palette.keyboardLetterTileColor,
         child: InkWell(
           onTap: () {
-            HapticFeedback.heavyImpact();
-
             final gameKit = context.read<GameKit>();
 
             if (gameKit.currentGuessWordString.length == widget.maxWordLimit) {
@@ -134,8 +132,6 @@ class GameKeyboardState extends State<GameKeyboard> {
           color: Palette.keyboardLetterTileColor,
           child: InkWell(
             onTap: () {
-              HapticFeedback.heavyImpact();
-
               final gameKit = context.read<GameKit>();
 
               if (gameKit.currentGuessWordString.isNotEmpty) {
@@ -176,8 +172,6 @@ class GameKeyboardState extends State<GameKeyboard> {
           color: Palette.keyboardLetterTileColor,
           child: InkWell(
             onTap: () {
-              HapticFeedback.heavyImpact();
-
               final gameKit = context.read<GameKit>();
               final meetKit = context.read<MeetKit>();
 

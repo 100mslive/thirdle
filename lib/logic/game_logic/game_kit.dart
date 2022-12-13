@@ -41,6 +41,10 @@ class GameKit extends ChangeNotifier {
     currentGuessWordString = "";
     currentGuessStatus = GuessStatus.validGuess;
     isWin = false;
+  }
+
+  void resetRound() {
+    startNewRound();
     notifyListeners();
   }
 
