@@ -14,7 +14,6 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   Future<void> init() async {
     await _getPermissions();
     actions = MeetActions();
-    actions.sdk = HMSSDK();
     await actions.sdk.build();
     actions.sdk.addUpdateListener(listener: this);
   }
@@ -39,24 +38,6 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   }
 
   @override
-  void onAudioDeviceChanged(
-      {HMSAudioDevice? currentAudioDevice,
-      List<HMSAudioDevice>? availableAudioDevice}) {
-    // Not a priority
-  }
-
-  @override
-  void onChangeTrackStateRequest(
-      {required HMSTrackChangeRequest hmsTrackChangeRequest}) {
-    // Not a priority
-  }
-
-  @override
-  void onHMSError({required HMSException error}) {
-    print(error);
-  }
-
-  @override
   void onJoin({required HMSRoom room}) {
     if (room.peers != null) {
       allPeers = room.peers!;
@@ -65,11 +46,6 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       });
     }
     notifyListeners();
-  }
-
-  @override
-  void onMessage({required HMSMessage message}) {
-    // Not a priority
   }
 
   @override
@@ -95,6 +71,43 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
         }
     }
     notifyListeners();
+  }
+
+  @override
+  void onTrackUpdate(
+      {required HMSTrack track,
+      required HMSTrackUpdate trackUpdate,
+      required HMSPeer peer}) {
+    final peerIndex = allPeers
+        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
+    if (peerIndex != -1) {
+      allPeers.removeAt(peerIndex);
+      allPeers.insert(peerIndex, peer);
+    }
+    notifyListeners();
+  }
+
+  @override
+  void onHMSError({required HMSException error}) {
+    print(error);
+  }
+
+  @override
+  void onAudioDeviceChanged(
+      {HMSAudioDevice? currentAudioDevice,
+      List<HMSAudioDevice>? availableAudioDevice}) {
+    // TODO: implement onAudioDeviceChanged
+  }
+
+  @override
+  void onChangeTrackStateRequest(
+      {required HMSTrackChangeRequest hmsTrackChangeRequest}) {
+    // TODO: implement onChangeTrackStateRequest
+  }
+
+  @override
+  void onMessage({required HMSMessage message}) {
+    // TODO: implement onMessage
   }
 
   @override
@@ -124,21 +137,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   }
 
   @override
-  void onTrackUpdate(
-      {required HMSTrack track,
-      required HMSTrackUpdate trackUpdate,
-      required HMSPeer peer}) {
-    final peerIndex = allPeers
-        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-    if (peerIndex != -1) {
-      allPeers.removeAt(peerIndex);
-      allPeers.insert(peerIndex, peer);
-    }
-    notifyListeners();
-  }
-
-  @override
   void onUpdateSpeakers({required List<HMSSpeaker> updateSpeakers}) {
-    // No need to implement
+    // TODO: implement onUpdateSpeakers
   }
 }

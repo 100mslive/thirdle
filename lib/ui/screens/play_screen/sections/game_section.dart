@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
-import 'package:thirdle/logic/game_logic/models/letter_model.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
+import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 import 'package:thirdle/ui/components/game_components/current_guess_word_bar.dart';
 import 'package:thirdle/ui/components/game_components/game_keyboard.dart';
 import 'package:thirdle/ui/components/game_components/guess_word_bar.dart';
 import 'package:thirdle/ui/components/reusable_components/the_button.dart';
-import 'package:thirdle/utils/helper.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class GameSection extends StatelessWidget {
@@ -74,11 +72,10 @@ class PlayAgainButton extends StatelessWidget {
         final gameKit = context.read<GameKit>();
         final meetKit = context.read<MeetKit>();
 
-        gameKit.startNewRound();
-        meetKit.actions.updateMetadata(
-          words: gameKit.guessWords,
-          guessNo: gameKit.currentGuessNo,
-        );
+        gameKit.resetRound();
+        final localPeerData = PeerData(
+            wordList: gameKit.guessWords, guessNo: gameKit.currentGuessNo);
+        meetKit.actions.updateMetadata(localPeerData: localPeerData);
       },
       childWidget: Text(
         "Play Again!",

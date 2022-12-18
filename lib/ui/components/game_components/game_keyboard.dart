@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
+import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 
 import '../../../utils/palette.dart';
 
@@ -178,10 +178,10 @@ class GameKeyboardState extends State<GameKeyboard> {
               gameKit.makeGuess();
 
               if (gameKit.currentGuessStatus == GuessStatus.validGuess) {
-                meetKit.actions.updateMetadata(
-                  words: gameKit.guessWords,
-                  guessNo: gameKit.currentGuessNo,
-                );
+                final localPeerData = PeerData(
+                    wordList: gameKit.guessWords,
+                    guessNo: gameKit.currentGuessNo);
+                meetKit.actions.updateMetadata(localPeerData: localPeerData);
                 // animateToCurrentWord();
               } else {
                 showToastWidget(

@@ -58,9 +58,9 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           boxShadow: <BoxShadow>[
-            BoxShadow(
+            const BoxShadow(
               color: Palette.secondaryColor,
-              offset: const Offset(0, 0.5),
+              offset: Offset(0, 0.5),
             ),
             BoxShadow(
               color: Palette.secondaryColor.withOpacity(0.6),
