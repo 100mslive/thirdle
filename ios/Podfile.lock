@@ -1,12 +1,12 @@
 PODS:
   - Flutter (1.0.0)
-  - HMSBroadcastExtensionSDK (0.0.3)
-  - HMSSDK (0.4.2):
+  - HMSBroadcastExtensionSDK (0.0.4)
+  - HMSSDK (0.4.6):
     - HMSWebRTC (= 1.0.4898)
-  - hmssdk_flutter (0.7.6):
+  - hmssdk_flutter (0.7.8):
     - Flutter
-    - HMSBroadcastExtensionSDK (= 0.0.3)
-    - HMSSDK (= 0.4.2)
+    - HMSBroadcastExtensionSDK (= 0.0.4)
+    - HMSSDK (= 0.4.6)
   - HMSWebRTC (1.0.4898)
   - path_provider_ios (0.0.1):
     - Flutter
@@ -47,9 +47,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  HMSBroadcastExtensionSDK: a69a4503a1708b5d51e2890d70f574b9cdfea760
-  HMSSDK: 50c5ea8edf7093472d4254c6f69ccce11323be10
-  hmssdk_flutter: d01a09c586d25afda61f5535963f06aa1d992af5
+  HMSBroadcastExtensionSDK: 9a8888c524db5582437d06e6087bc4be6d323412
+  HMSSDK: 775b6ea180e2b346dec593b9e53ae91d66ebdc7f
+  hmssdk_flutter: 379dfaabad0067df557151d6ffd772f7f4873011
   HMSWebRTC: d3a9b2866e4a36a1d3834728a548a4a46309bb86
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
@@ -58,4 +58,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
