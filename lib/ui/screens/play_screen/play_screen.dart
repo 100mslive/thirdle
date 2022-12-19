@@ -21,8 +21,11 @@ class _PlayScreenState extends State<PlayScreen> {
     final meetKit = context.read<MeetKit>();
 
     gameKit.startNewRound();
-    final localPeerData =
-        PeerData(wordList: gameKit.guessWords, guessNo: gameKit.currentGuessNo);
+    final localPeerData = PeerData(
+      wordList: gameKit.guessWords,
+      guessNo: gameKit.currentGuessNo,
+      isWin: gameKit.isWin,
+    );
     meetKit.actions.updateMetadata(localPeerData: localPeerData);
     super.initState();
   }

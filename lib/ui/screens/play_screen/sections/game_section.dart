@@ -74,7 +74,10 @@ class PlayAgainButton extends StatelessWidget {
 
         gameKit.resetRound();
         final localPeerData = PeerData(
-            wordList: gameKit.guessWords, guessNo: gameKit.currentGuessNo);
+          wordList: gameKit.guessWords,
+          guessNo: gameKit.currentGuessNo,
+          isWin: gameKit.isWin,
+        );
         meetKit.actions.updateMetadata(localPeerData: localPeerData);
       },
       childWidget: Text(

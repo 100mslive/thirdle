@@ -5,16 +5,19 @@ import 'package:thirdle/logic/game_logic/models/word_model.dart';
 class PeerData {
   List<Word> wordList;
   int guessNo;
+  bool isWin;
 
   PeerData({
     required this.wordList,
     required this.guessNo,
+    required this.isWin,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'wordList': wordList.map((x) => x.toMap()).toList(),
       'guessNo': guessNo,
+      'isWin': isWin,
     };
   }
 
@@ -26,6 +29,7 @@ class PeerData {
         ),
       ),
       guessNo: map['guessNo'] as int,
+      isWin: map['isWin'] as bool,
     );
   }
 

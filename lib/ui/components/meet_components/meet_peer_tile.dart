@@ -21,12 +21,11 @@ class MeetPeerTile extends StatefulWidget {
 
 class _MeetPeerTileState extends State<MeetPeerTile> {
   bool isExpanded = false;
-  final controller = ConfettiController();
-  bool isPlaying = false;
+  final confettiController = ConfettiController();
 
   @override
   void dispose() {
-    controller.dispose();
+    confettiController.dispose();
     super.dispose();
   }
 
@@ -34,23 +33,10 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
   Widget build(BuildContext context) {
     final meetKit = context.watch<MeetKit>();
 
-    final PeerData? peerWordList = meetKit.peerData[widget.peer.peerId];
+    final PeerData? peerData = meetKit.peerDataMap[widget.peer.peerId];
 
-    if (peerWordList != null) {
-      final latestWord = peerWordList.guessNo > 0
-          ? peerWordList.wordList.elementAt(peerWordList.guessNo - 1)
-          : peerWordList.wordList.first;
-
-      bool flag = true;
-      for (var letter in latestWord.letters) {
-        if (letter.status != LetterStatus.correctLetterWithPosition) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) {
-        controller.play();
-      }
+    if (peerData?.isWin ?? false) {
+      confettiController.play();
     }
 
     return Container(
@@ -84,15 +70,15 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
             SizedBox(
               height: 135,
               width: 100,
-              child: (widget.peer.videoTrack != null &&
-                      !widget.peer.videoTrack!.isMute)
-                  ? HMSVideoView(track: widget.peer.videoTrack!)
-                  : const Center(
+              child: (widget.peer.videoTrack == null ||
+                      widget.peer.videoTrack!.isMute)
+                  ? const Center(
                       child: Text(
                         "No Video",
                         style: TextStyle(fontSize: 10, color: Colors.white),
                       ),
-                    ),
+                    )
+                  : HMSVideoView(track: widget.peer.videoTrack!),
             ),
             Positioned(
               child: Align(
@@ -120,18 +106,18 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
                                 ),
                               ),
                             ),
-                            if (peerWordList != null)
+                            if (peerData != null)
                               if (isExpanded)
-                                ...peerWordList.wordList
+                                ...peerData.wordList
                                     .map((word) =>
                                         MiniColoredWordBar(word: word))
                                     .toList()
                               else
                                 MiniColoredWordBar(
-                                  word: peerWordList.guessNo > 0
-                                      ? peerWordList.wordList
-                                          .elementAt(peerWordList.guessNo - 1)
-                                      : peerWordList.wordList.first,
+                                  word: peerData.guessNo > 0
+                                      ? peerData.wordList
+                                          .elementAt(peerData.guessNo - 1)
+                                      : peerData.wordList.first,
                                 )
                             else
                               const SizedBox(),
@@ -147,7 +133,7 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: ConfettiWidget(
-                  confettiController: controller,
+                  confettiController: confettiController,
                   shouldLoop: true,
                   blastDirection: -pi / 2,
                   emissionFrequency: 0.01,

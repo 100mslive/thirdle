@@ -19,13 +19,13 @@ class MeetActions {
 
   Future<void> joinRoom(
       {required String name,
-      required String room,
+      required String roomId,
       required String subdomain}) async {
     http.Response response = await http.post(
       Uri.parse(
           "https://prod-in2.100ms.live/hmsapi/$subdomain.app.100ms.live/api/token"),
       body: {
-        'room_id': room,
+        'room_id': roomId,
         'user_id': Helper.getRandomString(16),
         'role': 'host'
       },
@@ -36,7 +36,7 @@ class MeetActions {
     config = HMSConfig(authToken: token, userName: name);
     sdk.join(config: config).then((value) {
       userName = name;
-      userRoomId = room;
+      userRoomId = roomId;
       userSubdomain = subdomain;
     });
   }

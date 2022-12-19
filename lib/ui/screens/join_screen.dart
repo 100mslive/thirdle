@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
-import 'package:thirdle/logic/game_logic/game_kit.dart';
 import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 import 'package:thirdle/ui/components/reusable_components/constrained_screen_wrapper.dart';
 import 'package:thirdle/ui/components/reusable_components/the_button.dart';
 import 'package:thirdle/ui/components/reusable_components/the_textfield.dart';
 import 'package:thirdle/ui/screens/play_screen/play_screen.dart';
+import 'package:thirdle/utils/constants.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class JoinScreen extends StatelessWidget {
@@ -22,53 +22,50 @@ class JoinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void startGame({String? name, String? roomId, String? subdomain}) {
-      final gameKit = context.read<GameKit>();
+    void startGame(
+        {required String name,
+        required String roomId,
+        required String subdomain}) {
       final meetKit = context.read<MeetKit>();
 
       meetKit.init().whenComplete(
             (() => meetKit.actions
                     .joinRoom(
-                      name: name ?? "test_user",
-                      room: roomId ?? "62dad79fb1e780e78c39d2cd",
-                      subdomain: subdomain ?? "karthikeyan",
+                      name: name.isNotEmpty ? name : Constants.name,
+                      roomId: roomId.isNotEmpty ? roomId : Constants.roomId,
+                      subdomain: subdomain.isNotEmpty
+                          ? subdomain
+                          : Constants.subdomain,
                     )
                     .whenComplete(
-                      () => Navigator.push(
-                        context,
+                      () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider.value(
-                                value: gameKit,
-                              ),
-                              ChangeNotifierProvider.value(
-                                value: meetKit,
-                              ),
-                            ],
-                            child: PlayScreen(),
-                          ),
+                          builder: (context) => PlayScreen(),
                         ),
                       ),
                     )
-                    .catchError((e) {
-                  showToastWidget(
+                    .catchError(
+                  (e) {
+                    showToastWidget(
                       ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8)),
                         child: Container(
-                            height: 40,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
-                            ),
-                            child: const Center(
-                              child: Text("Some error occurred!",
-                                  style: TextStyle(color: Colors.white)),
-                            )),
+                          height: 40,
+                          width: 200,
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: const Center(
+                            child: Text("Some error occurred!",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
                       ),
-                      position: ToastPosition.bottom);
-                })),
+                      position: ToastPosition.bottom,
+                    );
+                  },
+                )),
           );
     }
 
@@ -100,13 +97,9 @@ class JoinScreen extends StatelessWidget {
               width: 140,
               height: 45,
               onPressed: () => startGame(
-                name: nameController.text.isEmpty ? null : nameController.text,
-                roomId: roomIdController.text.isEmpty
-                    ? null
-                    : roomIdController.text,
-                subdomain: subdomainController.text.isEmpty
-                    ? null
-                    : subdomainController.text,
+                name: nameController.text,
+                roomId: roomIdController.text,
+                subdomain: subdomainController.text,
               ),
               childWidget: Text(
                 "Play!",

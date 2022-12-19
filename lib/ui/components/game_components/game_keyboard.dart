@@ -179,8 +179,10 @@ class GameKeyboardState extends State<GameKeyboard> {
 
               if (gameKit.currentGuessStatus == GuessStatus.validGuess) {
                 final localPeerData = PeerData(
-                    wordList: gameKit.guessWords,
-                    guessNo: gameKit.currentGuessNo);
+                  wordList: gameKit.guessWords,
+                  guessNo: gameKit.currentGuessNo,
+                  isWin: gameKit.isWin,
+                );
                 meetKit.actions.updateMetadata(localPeerData: localPeerData);
                 // animateToCurrentWord();
               } else {

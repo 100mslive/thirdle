@@ -9,18 +9,13 @@ import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];
   late MeetActions actions;
-  Map<String, PeerData?> peerData = {};
+  Map<String, PeerData?> peerDataMap = {};
 
   Future<void> init() async {
     await _getPermissions();
     actions = MeetActions();
     await actions.sdk.build();
     actions.sdk.addUpdateListener(listener: this);
-  }
-
-  void clear() {
-    allPeers.clear();
-    peerData.clear();
   }
 
   Future<bool> _getPermissions() async {
@@ -37,12 +32,26 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
     return true;
   }
 
+  void clear() {
+    allPeers.clear();
+    peerDataMap.clear();
+  }
+
+  void _updatePeer({required HMSPeer peer}) {
+    final peerIndex = allPeers
+        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
+    if (peerIndex != -1) {
+      allPeers.removeAt(peerIndex);
+      allPeers.insert(peerIndex, peer);
+    }
+  }
+
   @override
   void onJoin({required HMSRoom room}) {
     if (room.peers != null) {
       allPeers = room.peers!;
       room.peers!.map((peer) {
-        peerData[peer.peerId] = actions.parseMetadata(peer.metadata);
+        peerDataMap[peer.peerId] = actions.parseMetadata(peer.metadata);
       });
     }
     notifyListeners();
@@ -58,17 +67,13 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
         allPeers.remove(peer);
         break;
       case HMSPeerUpdate.metadataChanged:
-        peerData[peer.peerId] = actions.parseMetadata(peer.metadata);
+        peerDataMap[peer.peerId] = actions.parseMetadata(peer.metadata);
         break;
       case HMSPeerUpdate.roleUpdated:
       case HMSPeerUpdate.nameChanged:
       case HMSPeerUpdate.defaultUpdate:
       case HMSPeerUpdate.networkQualityUpdated:
-        final peerIndex = allPeers
-            .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-        if (peerIndex != -1) {
-          allPeers[peerIndex] = peer;
-        }
+        _updatePeer(peer: peer);
     }
     notifyListeners();
   }
@@ -78,12 +83,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       {required HMSTrack track,
       required HMSTrackUpdate trackUpdate,
       required HMSPeer peer}) {
-    final peerIndex = allPeers
-        .indexWhere((existingPeer) => existingPeer.peerId == peer.peerId);
-    if (peerIndex != -1) {
-      allPeers.removeAt(peerIndex);
-      allPeers.insert(peerIndex, peer);
-    }
+    _updatePeer(peer: peer);
     notifyListeners();
   }
 
