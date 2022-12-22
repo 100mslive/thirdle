@@ -8,7 +8,7 @@ import 'package:thirdle/ui/screens/play_screen/sections/game_section.dart';
 import 'package:thirdle/ui/screens/play_screen/sections/meet_section.dart';
 
 class PlayScreen extends StatefulWidget {
-  PlayScreen({super.key});
+  const PlayScreen({super.key});
 
   @override
   State<PlayScreen> createState() => _PlayScreenState();
@@ -40,7 +40,7 @@ class _PlayScreenState extends State<PlayScreen> {
       },
       childWidget: ListView(
         shrinkWrap: true,
-        children: [
+        children: const [
           MeetSection(),
           GameSection(),
         ],

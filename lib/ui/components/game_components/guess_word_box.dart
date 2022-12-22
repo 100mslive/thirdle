@@ -6,7 +6,7 @@ import 'package:thirdle/logic/game_logic/models/word_model.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class GuessWordsBox extends StatelessWidget {
-  GuessWordsBox({super.key});
+  const GuessWordsBox({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,12 +6,12 @@ import 'package:thirdle/logic/meet_logic/meet_kit.dart';
 import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 import 'package:thirdle/ui/components/game_components/current_guess_word_bar.dart';
 import 'package:thirdle/ui/components/game_components/game_keyboard.dart';
-import 'package:thirdle/ui/components/game_components/guess_word_bar.dart';
+import 'package:thirdle/ui/components/game_components/guess_word_box.dart';
 import 'package:thirdle/ui/components/reusable_components/the_button.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class GameSection extends StatelessWidget {
-  GameSection({super.key});
+  const GameSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class GameSection extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GuessWordsBox(),
+        const GuessWordsBox(),
         gameKit.isWin
             ? Column(
                 children: [

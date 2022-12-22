@@ -40,7 +40,7 @@ class JoinScreen extends StatelessWidget {
                     .whenComplete(
                       () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => PlayScreen(),
+                          builder: (context) => const PlayScreen(),
                         ),
                       ),
                     )

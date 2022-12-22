@@ -6,7 +6,7 @@ import 'package:thirdle/ui/components/meet_components/meet_peer_tile.dart';
 import 'package:thirdle/utils/palette.dart';
 
 class MeetSection extends StatelessWidget {
-  MeetSection({super.key});
+  const MeetSection({super.key});
 
   @override
   Widget build(BuildContext context) {
