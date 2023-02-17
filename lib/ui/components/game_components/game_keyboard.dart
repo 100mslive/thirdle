@@ -184,7 +184,6 @@ class GameKeyboardState extends State<GameKeyboard> {
                   isWin: gameKit.isWin,
                 );
                 meetKit.actions.updateMetadata(localPeerData: localPeerData);
-                // animateToCurrentWord();
               } else {
                 showToastWidget(
                     ClipRRect(

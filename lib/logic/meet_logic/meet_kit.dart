@@ -8,8 +8,10 @@ import 'package:thirdle/logic/meet_logic/models/peer_data_model.dart';
 
 class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   List<HMSPeer> allPeers = [];
-  late MeetActions actions;
   Map<String, PeerData?> peerDataMap = {};
+  Map<String, HMSVideoTrack?> peerVideoMap = {};
+
+  late MeetActions actions;
 
   Future<void> init() async {
     await _getPermissions();
@@ -52,6 +54,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       allPeers = room.peers!;
       room.peers!.map((peer) {
         peerDataMap[peer.peerId] = actions.parseMetadata(peer.metadata);
+        peerVideoMap[peer.peerId] = peer.videoTrack;
       });
     }
     notifyListeners();
@@ -62,6 +65,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
     switch (update) {
       case HMSPeerUpdate.peerJoined:
         allPeers.add(peer);
+        peerVideoMap[peer.peerId] = peer.videoTrack;
         break;
       case HMSPeerUpdate.peerLeft:
         allPeers.remove(peer);
@@ -83,7 +87,9 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
       {required HMSTrack track,
       required HMSTrackUpdate trackUpdate,
       required HMSPeer peer}) {
-    _updatePeer(peer: peer);
+    if (track.kind == HMSTrackKind.kHMSTrackKindVideo) {
+      peerVideoMap[peer.peerId] = track as HMSVideoTrack;
+    }
     notifyListeners();
   }
 

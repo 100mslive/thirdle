@@ -70,15 +70,16 @@ class _MeetPeerTileState extends State<MeetPeerTile> {
             SizedBox(
               height: 135,
               width: 100,
-              child: (widget.peer.videoTrack == null ||
-                      widget.peer.videoTrack!.isMute)
+              child: (meetKit.peerVideoMap[widget.peer.peerId] == null ||
+                      meetKit.peerVideoMap[widget.peer.peerId]!.isMute)
                   ? const Center(
                       child: Text(
                         "No Video",
                         style: TextStyle(fontSize: 10, color: Colors.white),
                       ),
                     )
-                  : HMSVideoView(track: widget.peer.videoTrack!),
+                  : HMSVideoView(
+                      track: meetKit.peerVideoMap[widget.peer.peerId]!),
             ),
             Positioned(
               child: Align(
