@@ -35,6 +35,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   void clear() {
     allPeers.clear();
     peerDataMap.clear();
+    peerVideoMap.clear();
   }
 
   void _updatePeer({required HMSPeer peer}) {
@@ -62,8 +63,10 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
   void onPeerUpdate({required HMSPeer peer, required HMSPeerUpdate update}) {
     switch (update) {
       case HMSPeerUpdate.peerJoined:
-        allPeers.add(peer);
-        peerVideoMap[peer.peerId] = peer.videoTrack;
+        if (!allPeers.contains(peer)) {
+          allPeers.add(peer);
+          peerVideoMap[peer.peerId] = peer.videoTrack;
+        }
         break;
       case HMSPeerUpdate.peerLeft:
         allPeers.remove(peer);
