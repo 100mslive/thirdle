@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hmssdk_flutter/hmssdk_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:thirdle/logic/meet_logic/meet_actions.dart';
@@ -15,9 +15,7 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
 
   Future<void> init() async {
     await _getPermissions();
-    actions = MeetActions();
-    await actions.sdk.build();
-    actions.sdk.addUpdateListener(listener: this);
+    actions = await MeetActions.create(this);
   }
 
   Future<bool> _getPermissions() async {
@@ -95,7 +93,9 @@ class MeetKit extends ChangeNotifier implements HMSUpdateListener {
 
   @override
   void onHMSError({required HMSException error}) {
-    print(error);
+    if (kDebugMode) {
+      print(error);
+    }
   }
 
   @override
