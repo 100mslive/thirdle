@@ -1,6 +1,9 @@
 # Thirdle
+A multiplayer wordle game that you can play with your friends while speaking to them over a video call.
 
-[![Thirdle Demo Video](https://img.youtube.com/vi/9nsgLzq8xJo/0.jpg)](https://www.youtube.com/watch?v=9nsgLzq8xJo)
+https://user-images.githubusercontent.com/62273306/219611332-f7e3a5b4-77e0-42b1-8d14-b4f9f3b41105.mp4
+
+Here's a video series on ["How to build Thirdle"](https://youtube.com/playlist?list=PLqHX7Ti3L8isxZWw_oE3V4P5n8BPnKQLe) step-by-step.
 
 ## What is special?
 
